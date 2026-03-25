@@ -1,0 +1,27 @@
+ body{
+    color: #000000;
+    background-color: #FFFFFF;
+                
+    }
+h1{
+    color: #000000;
+    background-color: #FFFFFF;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: oblique;
+    border-top-style: double;
+    border: left width 10px; 
+    border: left color(srgb red green blue);
+    }
+p{
+    border-style: outset;
+    border-color: beige;
+    background-color: beige;
+    color: #000000;
+    font-family: "consolas",sans-serif;
+    text-decoration: cyan;
+    font-size: 14px;
+}
+
+.odd{
+    color: blue;
+}
