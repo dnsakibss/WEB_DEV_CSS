@@ -1,0 +1,80 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+
+    background: linear-gradient(to left, beige, skyblue);
+    background-image: url("Flowers.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* HEADING */
+h1 {
+    text-align: center;
+    padding: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: oblique;
+
+    border-top: 3px double white;
+    border-bottom: 2px dotted white;
+}
+
+/* CONTAINER */
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px;
+}
+
+/* BOX DESIGN */
+.box {
+    width: 250px;
+    height: 300px;
+    padding: 20px;
+
+    background: white;
+    color: black;
+
+    border: 3px solid black;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* TEXT SECTION */
+.text-section {
+    max-width: 700px;
+    margin: 40px auto;
+}
+
+/* PARAGRAPH */
+p {
+    font-size: 18px;
+    margin: 10px 0;
+    padding: 10px;
+
+    border-left: 5px solid gold;
+    border-radius: 5px;
+}
+
+/* CLASSES */
+.odd {
+    color: beige;
+}
+
+.even {
+    color: lightcyan;
+}
