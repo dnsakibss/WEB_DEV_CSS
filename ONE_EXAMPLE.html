@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HTML + CSS + JS — Everything</title>
+
+  <style>
+    /* =============================================
+       CSS EVERYTHING SHOWCASE
+       ============================================= */
+
+    /* 1. CSS Variables (Custom Properties) */
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --card: #1c1c28;
+      --border: #2a2a3d;
+      --accent: #6c63ff;
+      --accent2: #ff6584;
+      --accent3: #43e97b;
+      --text: #e8e8f0;
+      --muted: #7b7b99;
+      --font-display: 'Georgia', serif;
+      --font-mono: 'Courier New', monospace;
+      --radius: 12px;
+      --shadow: 0 8px 32px rgba(108,99,255,0.15);
+    }
+
+    /* 2. CSS Reset */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* 3. Base Styles */
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Trebuchet MS', sans-serif;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* 4. Typography — headings, paragraphs, inline */
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 5vw, 4rem); }
+    h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); color: var(--accent); margin-bottom: 1rem; }
+    h3 { font-size: 1.2rem; color: var(--accent3); margin-bottom: .5rem; }
+    p  { margin-bottom: .75rem; color: var(--muted); }
+    strong { color: var(--text); }
+    em { color: var(--accent2); font-style: italic; }
+    small { font-size: .8rem; }
+    mark { background: var(--accent); color: #fff; padding: 0 4px; border-radius: 3px; }
+    del { color: var(--muted); text-decoration: line-through; }
+    ins { color: var(--accent3); text-decoration: underline; }
+    abbr { border-bottom: 1px dotted var(--muted); cursor: help; }
+    code { font-family: var(--font-mono); background: var(--card); padding: 2px 6px; border-radius: 4px; font-size: .875rem; color: var(--accent3); }
+    pre  { font-family: var(--font-mono); background: var(--card); padding: 1rem; border-radius: var(--radius); overflow-x: auto; border-left: 3px solid var(--accent); }
+    blockquote { border-left: 4px solid var(--accent2); padding-left: 1rem; margin: 1rem 0; font-style: italic; color: var(--muted); }
+    a  { color: var(--accent); text-decoration: none; transition: color .2s; }
+    a:hover { color: var(--accent2); text-decoration: underline; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+    /* 5. Layout — Flexbox */
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .flex-wrap { flex-wrap: wrap; }
+    .gap-1 { gap: .5rem; }
+    .gap-2 { gap: 1rem; }
+    .align-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+
+    /* 6. Layout — Grid */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+
+    /* 7. Box Model */
+    .section {
+      padding: 3rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* 8. Card Component */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      transition: transform .3s ease, box-shadow .3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(108,99,255,0.25); }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    }
+
+    /* 9. Backgrounds & Gradients */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 40%, rgba(108,99,255,.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 70%, rgba(255,101,132,.12) 0%, transparent 60%),
+        var(--bg);
+      position: relative;
+    }
+
+    /* 10. Pseudo-elements */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 39px,
+        rgba(255,255,255,.02) 40px
+      );
+      pointer-events: none;
+    }
+
+    .hero-title { position: relative; z-index: 1; }
+    .hero-title span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p { font-size: 1.15rem; max-width: 600px; position: relative; z-index: 1; }
+
+    /* 11. Buttons */
+    .btn {
+      display: inline-block;
+      padding: .7rem 1.6rem;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all .2s;
+      letter-spacing: .03em;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #8b83ff; transform: scale(1.04); }
+    .btn-outline { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+    .btn-outline:hover { background: var(--accent); color: #fff; }
+    .btn-danger { background: var(--accent2); color: #fff; }
+    .btn-success { background: var(--accent3); color: #000; }
+    .btn:active { transform: scale(.97); }
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* 12. Animations & Keyframes */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.06); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes slideIn {
+      from { transform: translateX(-40px); opacity: 0; }
+      to   { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-12px); }
+    }
+    @keyframes colorShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .anim-fade    { animation: fadeIn .8s ease forwards; }
+    .anim-pulse   { animation: pulse 2s ease-in-out infinite; }
+    .anim-spin    { animation: spin 1.5s linear infinite; }
+    .anim-bounce  { animation: bounce 1s ease-in-out infinite; }
+    .anim-slide   { animation: slideIn .6s ease forwards; }
+
+    .gradient-box {
+      background: linear-gradient(270deg, var(--accent), var(--accent2), var(--accent3));
+      background-size: 400% 400%;
+      animation: colorShift 4s ease infinite;
+      height: 80px;
+      border-radius: var(--radius);
+    }
+
+    /* 13. Transitions */
+    .transition-all { transition: all .3s ease; }
+
+    /* 14. Transforms */
+    .transform-demo:hover {
+      transform: rotate(5deg) scale(1.05);
+    }
+
+    /* 15. Forms */
+    .form-group { margin-bottom: 1.2rem; }
+    label { display: block; margin-bottom: .4rem; font-size: .9rem; color: var(--text); }
+    input, select, textarea {
+      width: 100%;
+      padding: .65rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: .95rem;
+      font-family: inherit;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(108,99,255,.2);
+    }
+    input[type="range"] { padding: 0; cursor: pointer; accent-color: var(--accent); }
+    input[type="checkbox"], input[type="radio"] { width: auto; margin-right: .4rem; accent-color: var(--accent); }
+    textarea { min-height: 100px; resize: vertical; }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    fieldset { border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+    legend  { padding: 0 .5rem; color: var(--accent); font-size: .9rem; }
+
+    /* 16. Tables */
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    th { background: var(--surface); color: var(--accent); text-align: left; padding: .75rem 1rem; border: 1px solid var(--border); }
+    td { padding: .65rem 1rem; border: 1px solid var(--border); color: var(--muted); }
+    tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+    tr:hover td { background: rgba(108,99,255,.07); color: var(--text); transition: background .2s; }
+
+    /* 17. Lists */
+    ul.styled { list-style: none; }
+    ul.styled li::before { content: '▸ '; color: var(--accent); }
+    ol.styled { counter-reset: my-counter; list-style: none; }
+    ol.styled li { counter-increment: my-counter; }
+    ol.styled li::before { content: counter(my-counter) '. '; color: var(--accent2); font-weight: bold; }
+    dl dt { font-weight: bold; color: var(--text); }
+    dl dd { margin-left: 1.5rem; color: var(--muted); margin-bottom: .5rem; }
+
+    /* 18. Media / Images */
+    img { max-width: 100%; border-radius: var(--radius); display: block; }
+    figure { text-align: center; }
+    figcaption { font-size: .8rem; color: var(--muted); margin-top: .5rem; }
+
+    /* 19. Pseudo-classes */
+    .pseudo-demo a:visited { color: var(--accent2); }
+    .pseudo-demo li:first-child { font-weight: bold; }
+    .pseudo-demo li:last-child { font-style: italic; }
+    .pseudo-demo li:nth-child(2) { color: var(--accent3); }
+    .pseudo-demo p:not(.exclude) { border-left: 2px solid var(--accent); padding-left: .5rem; }
+
+    /* 20. Position */
+    .pos-demo {
+      position: relative;
+      height: 120px;
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    .pos-demo .abs { position: absolute; top: 10px; right: 10px; background: var(--accent); color: #fff; padding: .3rem .7rem; border-radius: 6px; font-size: .8rem; }
+    .pos-demo .rel { position: relative; top: 20px; left: 20px; background: var(--accent2); color: #fff; padding: .3rem .7rem; border-radius: 6px; display: inline-block; font-size: .8rem; }
+
+    /* 21. Z-index & Overflow */
+    .overflow-demo { overflow: auto; max-height: 100px; background: var(--surface); border-radius: 8px; padding: 1rem; border: 1px solid var(--border); }
+
+    /* 22. Visibility & Display */
+    .hidden-vis { visibility: hidden; }
+    .hidden-disp { display: none; }
+
+    /* 23. Filters & Opacity */
+    .filter-demo img { filter: grayscale(100%); transition: filter .4s; }
+    .filter-demo img:hover { filter: grayscale(0%); }
+    .opacity-demo { opacity: .4; transition: opacity .3s; }
+    .opacity-demo:hover { opacity: 1; }
+
+    /* 24. Cursor */
+    .cursor-pointer { cursor: pointer; }
+    .cursor-cross   { cursor: crosshair; }
+
+    /* 25. Scroll Snap */
+    .snap-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 1rem; padding: 1rem 0; }
+    .snap-item { min-width: 200px; height: 100px; scroll-snap-align: start; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--accent); flex-shrink: 0; }
+
+    /* 26. CSS Counter */
+    .counter-list { counter-reset: section; list-style: none; }
+    .counter-list li::before { counter-increment: section; content: 'Step ' counter(section) ': '; color: var(--accent3); font-weight: bold; }
+
+    /* 27. Clip-path */
+    .clip-demo {
+      width: 100px; height: 100px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      margin: auto;
+      transition: clip-path .4s;
+    }
+    .clip-demo:hover { clip-path: circle(50%); }
+
+    /* 28. Aspect Ratio & Object Fit */
+    .aspect-box { aspect-ratio: 16/9; background: var(--surface); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: .85rem; border: 1px solid var(--border); }
+
+    /* 29. Media Queries */
+    @media (max-width: 768px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      h1 { font-size: 2rem; }
+    }
+    @media (prefers-color-scheme: light) { /* would apply on light OS */ }
+    @media print { body { background: white; color: black; } }
+
+    /* 30. CSS Shapes (border-radius extremes) */
+    .shape-circle  { width: 80px; height: 80px; background: var(--accent); border-radius: 50%; }
+    .shape-pill    { width: 120px; height: 40px; background: var(--accent2); border-radius: 999px; }
+    .shape-diamond { width: 60px; height: 60px; background: var(--accent3); transform: rotate(45deg); border-radius: 8px; }
+
+    /* 31. Text Effects */
+    .text-shadow  { text-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent); }
+    .text-clip {
+      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2rem; font-weight: 900;
+    }
+    .letter-spacing { letter-spacing: .3em; text-transform: uppercase; font-size: .85rem; color: var(--muted); }
+
+    /* 32. Scrollbar Styling */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* 33. Selection */
+    ::selection { background: var(--accent); color: #fff; }
+
+    /* 34. Focus Visible */
+    button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    /* 35. Navbar */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(10,10,15,.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav .logo { font-family: var(--font-display); font-size: 1.2rem; color: var(--accent); font-weight: bold; }
+    nav .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    nav .nav-links a { font-size: .9rem; color: var(--muted); transition: color .2s; }
+    nav .nav-links a:hover { color: var(--accent); }
+
+    /* 36. Progress & Meter */
+    progress { width: 100%; height: 10px; border-radius: 999px; border: none; appearance: none; background: var(--border); }
+    progress::-webkit-progress-bar { background: var(--border); border-radius: 999px; }
+    progress::-webkit-progress-value { background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 999px; }
+    meter { width: 100%; height: 10px; }
+
+    /* 37. Details / Summary */
+    details { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: .75rem; }
+    summary { cursor: pointer; font-weight: bold; color: var(--text); list-style: none; display: flex; align-items: center; gap: .5rem; }
+    summary::before { content: '▶'; color: var(--accent); font-size: .75rem; transition: transform .2s; }
+    details[open] summary::before { transform: rotate(90deg); }
+
+    /* 38. Tag / Badge */
+    .badge { display: inline-block; padding: .2rem .6rem; border-radius: 999px; font-size: .75rem; font-weight: 700; background: var(--accent); color: #fff; }
+    .badge-green { background: var(--accent3); color: #000; }
+    .badge-red   { background: var(--accent2); color: #fff; }
+
+    /* 39. Tooltip (CSS only) */
+    .tooltip-wrap { position: relative; display: inline-block; }
+    .tooltip-wrap .tip {
+      visibility: hidden; opacity: 0;
+      background: var(--surface); color: var(--text);
+      border: 1px solid var(--border);
+      padding: .4rem .8rem; border-radius: 6px;
+      font-size: .8rem; white-space: nowrap;
+      position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+      transition: opacity .2s;
+      pointer-events: none;
+    }
+    .tooltip-wrap:hover .tip { visibility: visible; opacity: 1; }
+
+    /* 40. Dark overlay modal backdrop */
+    .modal-backdrop {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.7);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-backdrop.open { display: flex; animation: fadeIn .3s ease; }
+    .modal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+
+    /* 41. Tab UI */
+    .tab-btns { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .tab-btn { padding: .5rem 1.1rem; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; font-size: .9rem; transition: all .2s; }
+    .tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .tab-panel { display: none; animation: fadeIn .3s ease; }
+    .tab-panel.active { display: block; }
+
+    /* 42. Accordion */
+    .accordion-btn {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); padding: .75rem 1rem; border-radius: 8px;
+      text-align: left; cursor: pointer; font-size: .95rem;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background .2s;
+      margin-bottom: .4rem;
+    }
+    .accordion-btn:hover { background: var(--card); }
+    .accordion-btn .icon { transition: transform .3s; color: var(--accent); }
+    .accordion-btn.open .icon { transform: rotate(180deg); }
+    .accordion-content { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+    .accordion-content.open { max-height: 300px; }
+    .accordion-content-inner { padding: 1rem; color: var(--muted); font-size: .9rem; }
+
+    /* 43. Range Slider output */
+    #rangeVal { color: var(--accent); font-weight: bold; }
+
+    /* 44. Canvas */
+    canvas { border-radius: var(--radius); border: 1px solid var(--border); display: block; }
+
+    /* 45. Output element */
+    output { color: var(--accent3); font-weight: bold; font-family: var(--font-mono); }
+
+    /* 46. Drag indicator */
+    .draggable { cursor: grab; user-select: none; }
+    .draggable:active { cursor: grabbing; }
+    .drop-zone {
+      border: 2px dashed var(--border); border-radius: var(--radius);
+      padding: 2rem; text-align: center; color: var(--muted); font-size: .9rem;
+      transition: border-color .2s, background .2s;
+    }
+    .drop-zone.over { border-color: var(--accent); background: rgba(108,99,255,.06); }
+
+    /* 47. Skeleton Loader */
+    .skeleton {
+      background: linear-gradient(90deg, var(--surface) 25%, var(--card) 50%, var(--surface) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-shimmer 1.4s infinite;
+      border-radius: 6px;
+    }
+    @keyframes skeleton-shimmer { to { background-position: -200% 0; } }
+    .skeleton-line { height: 14px; margin-bottom: .6rem; }
+    .skeleton-line.w60 { width: 60%; }
+    .skeleton-line.w80 { width: 80%; }
+    .skeleton-line.w40 { width: 40%; }
+
+    /* 48. Step indicator */
+    .steps { display: flex; gap: 0; counter-reset: step; }
+    .step { flex: 1; text-align: center; font-size: .75rem; color: var(--muted); position: relative; }
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: block; width: 32px; height: 32px;
+      background: var(--surface); border: 2px solid var(--border);
+      border-radius: 50%; margin: 0 auto .4rem;
+      line-height: 28px; font-weight: bold; color: var(--muted);
+    }
+    .step.done::before { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .step::after {
+      content: '';
+      position: absolute; top: 16px; left: calc(50% + 16px);
+      width: calc(100% - 32px); height: 2px;
+      background: var(--border);
+    }
+    .step:last-child::after { display: none; }
+    .step.done::after { background: var(--accent); }
+
+    /* 49. Toast Notification */
+    #toast-container { position: fixed; bottom: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: .5rem; }
+    .toast {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); padding: .75rem 1.25rem; border-radius: 10px;
+      font-size: .9rem; box-shadow: 0 6px 20px rgba(0,0,0,.4);
+      animation: slideIn .3s ease;
+      max-width: 300px;
+    }
+    .toast.success { border-left: 4px solid var(--accent3); }
+    .toast.error   { border-left: 4px solid var(--accent2); }
+    .toast.info    { border-left: 4px solid var(--accent); }
+
+    /* 50. Footer */
+    footer {
+      text-align: center; padding: 2rem;
+      color: var(--muted); font-size: .85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Utilities */
+    .mt-1 { margin-top: .5rem; }
+    .mt-2 { margin-top: 1rem; }
+    .mt-3 { margin-top: 1.5rem; }
+    .mb-1 { margin-bottom: .5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .text-center { text-align: center; }
+    .w-full { width: 100%; }
+    .rounded { border-radius: var(--radius); }
+    .overflow-hidden { overflow: hidden; }
+    .pt-nav { padding-top: 5rem; }
+    .tag { display: inline-block; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: .15rem .5rem; font-size: .78rem; color: var(--muted); font-family: var(--font-mono); }
+
+    /* Section badge label */
+    .sec-label {
+      font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--accent); font-weight: 700; margin-bottom: .5rem;
+      display: block;
+    }
+
+    /* Colored boxes */
+    .box { border-radius: 8px; padding: 1rem; }
+    .box-purple { background: rgba(108,99,255,.12); border: 1px solid rgba(108,99,255,.3); }
+    .box-pink   { background: rgba(255,101,132,.10); border: 1px solid rgba(255,101,132,.3); }
+    .box-green  { background: rgba(67,233,123,.10); border: 1px solid rgba(67,233,123,.3); }
+
+    /* Color swatches */
+    .swatch-row { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .swatch { width: 50px; height: 50px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
+  </style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <span class="logo">HTML·CSS·JS</span>
+  <ul class="nav-links">
+    <li><a href="#html-sec">HTML</a></li>
+    <li><a href="#css-sec">CSS</a></li>
+    <li><a href="#js-sec">JS</a></li>
+    <li><a href="#interactive">Interactive</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<div class="hero pt-nav">
+  <h1 class="hero-title anim-fade"><span>Everything</span><br>in One File</h1>
+  <p class="anim-fade" style="animation-delay:.2s">HTML5 · CSS3 · JavaScript ES6+<br>Every concept. One page.</p>
+  <div class="flex gap-1 mt-3 anim-fade" style="animation-delay:.4s;justify-content:center;flex-wrap:wrap;">
+    <a href="#html-sec" class="btn btn-primary">Explore HTML</a>
+    <a href="#css-sec" class="btn btn-outline">CSS Showcase</a>
+    <a href="#js-sec" class="btn btn-success">JavaScript</a>
+  </div>
+</div>
+
+<!-- =========================================================
+     SECTION 1: HTML ELEMENTS
+     ========================================================= -->
+<div class="section" id="html-sec">
+  <span class="sec-label">Section 1</span>
+  <h2>HTML — Every Element</h2>
+
+  <!-- 1.1 Headings -->
+  <div class="card mb-2">
+    <h3>Headings h1–h6</h3>
+    <h1 style="font-size:1.8rem">Heading 1</h1>
+    <h2 style="color:var(--text);font-size:1.5rem">Heading 2</h2>
+    <h3 style="color:var(--text);font-size:1.3rem">Heading 3</h3>
+    <h4 style="color:var(--muted)">Heading 4</h4>
+    <h5 style="color:var(--muted)">Heading 5</h5>
+    <h6 style="color:var(--muted);font-size:.85rem">Heading 6</h6>
+  </div>
+
+  <!-- 1.2 Text Semantics -->
+  <div class="card mb-2">
+    <h3>Text Semantics</h3>
+    <p>
+      <strong>Bold</strong> · <em>Italic</em> · <u>Underline</u> · <s>Strikethrough</s> ·
+      <mark>Highlighted</mark> · <small>Small</small> · <sup>Sup</sup> · <sub>Sub</sub> ·
+      <del>Deleted</del> · <ins>Inserted</ins> · <code>inline code</code> ·
+      <abbr title="HyperText Markup Language">HTML</abbr> ·
+      <kbd>Ctrl+C</kbd> · <samp>output</samp> · <var>x</var>
+    </p>
+    <blockquote>"The web is for everyone." — Tim Berners-Lee</blockquote>
+    <pre><code>function hello() {
+  console.log("Hello, World!");
+}</code></pre>
+  </div>
+
+  <!-- 1.3 Lists -->
+  <div class="grid-3 mb-2">
+    <div class="card">
+      <h3>Unordered List</h3>
+      <ul class="styled">
+        <li>HTML5 Semantics</li>
+        <li>CSS3 Animations</li>
+        <li>ES6+ JavaScript</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Ordered List</h3>
+      <ol class="styled">
+        <li>Learn HTML</li>
+        <li>Master CSS</li>
+        <li>Conquer JS</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Definition List</h3>
+      <dl>
+        <dt>HTML</dt><dd>Structure of the web</dd>
+        <dt>CSS</dt><dd>Style of the web</dd>
+        <dt>JS</dt><dd>Behavior of the web</dd>
+      </dl>
+    </div>
+  </div>
+
+  <!-- 1.4 Links & Media -->
+  <div class="card mb-2">
+    <h3>Links · Figure · SVG Inline</h3>
+    <p>
+      <a href="https://developer.mozilla.org" target="_blank" rel="noopener">MDN Web Docs ↗</a> ·
+      <a href="mailto:hello@example.com">Email Link</a> ·
+      <a href="tel:+1234567890">Phone Link</a> ·
+      <a href="#top">Anchor (#top)</a>
+    </p>
+    <figure>
+      <!-- Inline SVG as image substitute -->
+      <svg width="260" height="80" viewBox="0 0 260 80" xmlns="http://www.w3.org/2000/svg" style="margin:auto">
+        <defs>
+          <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#6c63ff"/>
+            <stop offset="50%" stop-color="#ff6584"/>
+            <stop offset="100%" stop-color="#43e97b"/>
+          </linearGradient>
+        </defs>
+        <rect width="260" height="80" rx="12" fill="#1c1c28"/>
+        <text x="130" y="48" text-anchor="middle" fill="url(#g1)" font-size="28" font-weight="bold" font-family="Georgia, serif">SVG Inline</text>
+      </svg>
+      <figcaption>An inline SVG element inside &lt;figure&gt;</figcaption>
+    </figure>
+  </div>
+
+  <!-- 1.5 Table -->
+  <div class="card mb-2">
+    <h3>Table</h3>
+    <div style="overflow-x:auto">
+      <table>
+        <caption style="color:var(--muted);font-size:.8rem;margin-bottom:.5rem">Web Technology Comparison</caption>
+        <thead>
+          <tr><th>Tech</th><th>Role</th><th>Year</th><th>Level</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>HTML</td><td>Structure</td><td>1991</td><td><span class="badge">Beginner</span></td></tr>
+          <tr><td>CSS</td><td>Style</td><td>1996</td><td><span class="badge" style="background:var(--accent2)">Intermediate</span></td></tr>
+          <tr><td>JavaScript</td><td>Behavior</td><td>1995</td><td><span class="badge badge-green">Advanced</span></td></tr>
+          <tr><td>TypeScript</td><td>Typed JS</td><td>2012</td><td><span class="badge" style="background:#ff9f43">Expert</span></td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="4" style="font-size:.8rem;color:var(--muted)">Data is approximate</td></tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- 1.6 HTML5 Semantic Elements -->
+  <div class="card mb-2">
+    <h3>HTML5 Semantic Tags</h3>
+    <div class="flex gap-1 flex-wrap">
+      <span class="tag">&lt;header&gt;</span><span class="tag">&lt;nav&gt;</span>
+      <span class="tag">&lt;main&gt;</span><span class="tag">&lt;section&gt;</span>
+      <span class="tag">&lt;article&gt;</span><span class="tag">&lt;aside&gt;</span>
+      <span class="tag">&lt;footer&gt;</span><span class="tag">&lt;figure&gt;</span>
+      <span class="tag">&lt;figcaption&gt;</span><span class="tag">&lt;details&gt;</span>
+      <span class="tag">&lt;summary&gt;</span><span class="tag">&lt;mark&gt;</span>
+      <span class="tag">&lt;time&gt;</span><span class="tag">&lt;dialog&gt;</span>
+      <span class="tag">&lt;datalist&gt;</span><span class="tag">&lt;output&gt;</span>
+      <span class="tag">&lt;progress&gt;</span><span class="tag">&lt;meter&gt;</span>
+      <span class="tag">&lt;canvas&gt;</span><span class="tag">&lt;audio&gt;</span>
+      <span class="tag">&lt;video&gt;</span><span class="tag">&lt;picture&gt;</span>
+      <span class="tag">&lt;template&gt;</span>
+    </div>
+  </div>
+
+  <!-- 1.7 Form Elements (HTML) -->
+  <div class="card mb-2">
+    <h3>All Form Elements</h3>
+    <form id="demo-form" novalidate>
+      <div class="grid-2">
+        <div>
+          <div class="form-group">
+            <label for="txt">Text Input</label>
+            <input type="text" id="txt" placeholder="Enter text..." />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password</label>
+            <input type="password" id="pwd" placeholder="••••••••" />
+          </div>
+          <div class="form-group">
+            <label for="num">Number</label>
+            <input type="number" id="num" min="0" max="100" value="42" />
+          </div>
+          <div class="form-group">
+            <label for="dt">Date</label>
+            <input type="date" id="dt" />
+          </div>
+          <div class="form-group">
+            <label for="tm">Time</label>
+            <input type="time" id="tm" />
+          </div>
+          <div class="form-group">
+            <label for="color-pick">Color Picker</label>
+            <input type="color" id="color-pick" value="#6c63ff" />
+          </div>
+          <div class="form-group">
+            <label>Range: <span id="rangeVal">50</span></label>
+            <input type="range" id="slider" min="0" max="100" value="50" oninput="document.getElementById('rangeVal').textContent=this.value" />
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label for="sel">Select Dropdown</label>
+            <select id="sel">
+              <option value="">-- Choose --</option>
+              <optgroup label="Frontend">
+                <option>HTML</option><option>CSS</option><option>JavaScript</option>
+              </optgroup>
+              <optgroup label="Backend">
+                <option>Node.js</option><option>Python</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="multi-sel">Multi-select</label>
+            <select id="multi-sel" multiple size="3">
+              <option>React</option><option>Vue</option><option>Angular</option><option>Svelte</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="srch">Search (datalist)</label>
+            <input type="text" id="srch" list="langs" placeholder="Type a language..." />
+            <datalist id="langs">
+              <option value="JavaScript"/><option value="Python"/>
+              <option value="Rust"/><option value="Go"/><option value="TypeScript"/>
+            </datalist>
+          </div>
+          <div class="form-group">
+            <label for="ta">Textarea</label>
+            <textarea id="ta" placeholder="Type here..."></textarea>
+          </div>
+          <fieldset>
+            <legend>Checkboxes</legend>
+            <label><input type="checkbox" checked /> HTML</label>
+            <label><input type="checkbox" checked /> CSS</label>
+            <label><input type="checkbox" /> JS</label>
+          </fieldset>
+          <fieldset style="margin-top:.75rem">
+            <legend>Radio Buttons</legend>
+            <label><input type="radio" name="r1" checked /> Beginner</label>
+            <label><input type="radio" name="r1" /> Intermediate</label>
+            <label><input type="radio" name="r1" /> Advanced</label>
+          </fieldset>
+        </div>
+      </div>
+      <div class="form-group mt-2">
+        <label>Progress</label>
+        <progress value="70" max="100"></progress>
+      </div>
+      <div class="form-group">
+        <label>Sum: <output id="calc-out">0</output></label>
+      </div>
+      <div class="flex gap-1 flex-wrap mt-2">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset"  class="btn btn-outline">Reset</button>
+        <button type="button" class="btn btn-danger" disabled>Disabled</button>
+        <input type="file" style="display:none" id="file-in"/>
+        <label for="file-in" class="btn btn-outline" style="cursor:pointer">Upload File</label>
+      </div>
+    </form>
+  </div>
+
+  <!-- 1.8 Details/Summary -->
+  <div class="card mb-2">
+    <h3>Details / Summary (Native Accordion)</h3>
+    <details open>
+      <summary>What is HTML?</summary>
+      <p class="mt-1">HTML (HyperText Markup Language) is the standard language for creating web pages. It describes the structure of a web page using markup elements.</p>
+    </details>
+    <details>
+      <summary>What is CSS?</summary>
+      <p class="mt-1">CSS (Cascading Style Sheets) describes how HTML elements are to be displayed on screen, paper, or in other media.</p>
+    </details>
+    <details>
+      <summary>What is JavaScript?</summary>
+      <p class="mt-1">JavaScript is a lightweight, interpreted programming language with first-class functions. It is most well-known as the scripting language for Web pages.</p>
+    </details>
+  </div>
+
+  <!-- 1.9 Media -->
+  <div class="card mb-2">
+    <h3>Audio & Video Elements</h3>
+    <p><strong>Audio:</strong></p>
+    <audio controls style="width:100%;margin-bottom:1rem">
+      <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <p><strong>Video:</strong></p>
+    <video controls width="100%" style="border-radius:8px;max-height:200px;object-fit:cover;background:#000">
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- 1.10 iframe & embed -->
+  <div class="card">
+    <h3>iFrame Embed</h3>
+    <iframe
+      src="https://www.openstreetmap.org/export/embed.html?bbox=90.3,23.7,90.5,23.9&layer=mapnik"
+      width="100%" height="200" style="border:none;border-radius:8px"
+      title="OpenStreetMap embed"
+    ></iframe>
+  </div>
+</div>
+
+<!-- =========================================================
+     SECTION 2: CSS SHOWCASE
+     ========================================================= -->
+<div class="section" id="css-sec">
+  <span class="sec-label">Section 2</span>
+  <h2>CSS — Every Concept</h2>
+
+  <!-- Colors & Swatches -->
+  <div class="card mb-2">
+    <h3>Colors (hex, rgb, hsl, gradient)</h3>
+    <div class="swatch-row">
+      <div class="swatch" style="background:#6c63ff" title="#6c63ff"></div>
+      <div class="swatch" style="background:rgb(255,101,132)" title="rgb"></div>
+      <div class="swatch" style="background:hsl(145,78%,59%)" title="hsl"></div>
+      <div class="swatch" style="background:rgba(108,99,255,.4)" title="rgba"></div>
+      <div class="swatch" style="background:linear-gradient(135deg,#6c63ff,#ff6584)" title="linear-gradient"></div>
+      <div class="swatch" style="background:radial-gradient(circle,#6c63ff,#0a0a0f)" title="radial-gradient"></div>
+      <div class="swatch" style="background:conic-gradient(#6c63ff,#ff6584,#43e97b,#6c63ff)" title="conic-gradient"></div>
+    </div>
+  </div>
+
+  <!-- Animated gradient -->
+  <div class="card mb-2">
+    <h3>Animated Gradient (CSS keyframes)</h3>
+    <div class="gradient-box"></div>
+  </div>
+
+  <!-- Animations -->
+  <div class="card mb-2">
+    <h3>CSS Animations</h3>
+    <div class="flex gap-2 flex-wrap align-center">
+      <div class="anim-pulse" style="width:60px;height:60px;background:var(--accent);border-radius:12px"></div>
+      <div class="anim-bounce" style="width:60px;height:60px;background:var(--accent2);border-radius:50%"></div>
+      <div class="anim-spin" style="width:60px;height:60px;border:4px solid var(--border);border-top-color:var(--accent3);border-radius:50%"></div>
+    </div>
+  </div>
+
+  <!-- Flexbox -->
+  <div class="card mb-2">
+    <h3>Flexbox</h3>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:space-between;align-items:center;background:var(--surface);padding:1rem;border-radius:8px">
+      <div class="box box-purple" style="padding:.5rem 1rem">Flex Item 1</div>
+      <div class="box box-pink"   style="padding:.5rem 1rem;flex:1;text-align:center">Flex: 1 (grows)</div>
+      <div class="box box-green"  style="padding:.5rem 1rem">Flex Item 3</div>
+    </div>
+  </div>
+
+  <!-- CSS Grid -->
+  <div class="card mb-2">
+    <h3>CSS Grid</h3>
+    <div style="display:grid;grid-template-columns:1fr 2fr 1fr;grid-template-rows:auto auto;gap:.5rem">
+      <div class="box box-purple" style="grid-column:1/4;padding:.5rem;text-align:center;font-size:.85rem">Header (span 3)</div>
+      <div class="box box-pink" style="padding:.5rem;font-size:.85rem">Sidebar</div>
+      <div class="box box-green" style="padding:.5rem;font-size:.85rem">Main Content (2fr)</div>
+      <div class="box box-purple" style="padding:.5rem;font-size:.85rem">Right</div>
+    </div>
+  </div>
+
+  <!-- Positions -->
+  <div class="card mb-2">
+    <h3>Positions (relative, absolute, sticky, fixed)</h3>
+    <div class="pos-demo">
+      <span class="rel">relative</span>
+      <span class="abs">absolute</span>
+    </div>
+    <p class="mt-1" style="font-size:.85rem">The nav bar at top is <code>position:fixed</code>. Try scrolling — it stays!</p>
+  </div>
+
+  <!-- CSS Shapes -->
+  <div class="card mb-2">
+    <h3>Shapes via CSS</h3>
+    <div class="flex gap-2 align-center flex-wrap">
+      <div class="shape-circle"></div>
+      <div class="shape-pill"></div>
+      <div class="shape-diamond"></div>
+      <div style="width:0;height:0;border-left:40px solid transparent;border-right:40px solid transparent;border-bottom:70px solid var(--accent)"></div>
+    </div>
+  </div>
+
+  <!-- Clip Path -->
+  <div class="card mb-2">
+    <h3>clip-path (hover to morph)</h3>
+    <div class="clip-demo cursor-pointer transform-demo"></div>
+  </div>
+
+  <!-- Text Effects -->
+  <div class="card mb-2">
+    <h3>Text Effects</h3>
+    <p class="text-shadow" style="font-size:1.5rem;font-weight:bold">Glowing Text Shadow</p>
+    <div class="text-clip">Gradient Text Clip</div>
+    <p class="letter-spacing mt-1">Wide Letter Spacing</p>
+    <p style="text-transform:uppercase;word-spacing:1rem">Word Spacing</p>
+    <p style="writing-mode:horizontal-tb">Normal · <span style="writing-mode:vertical-lr;display:inline-block;height:60px;font-size:.85rem">Vertical ↕</span></p>
+  </div>
+
+  <!-- Box Shadow & Filters -->
+  <div class="card mb-2">
+    <h3>Box Shadows & Filters</h3>
+    <div class="flex gap-2 flex-wrap">
+      <div style="width:80px;height:80px;background:var(--accent);border-radius:12px;box-shadow:0 0 20px var(--accent)"></div>
+      <div style="width:80px;height:80px;background:var(--accent2);border-radius:12px;box-shadow:8px 8px 0 var(--border)"></div>
+      <div style="width:80px;height:80px;background:var(--accent3);border-radius:12px;filter:blur(2px)"></div>
+      <div style="width:80px;height:80px;background:var(--accent);border-radius:12px;filter:brightness(1.5)"></div>
+      <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:12px;filter:contrast(1.4) saturate(1.5)"></div>
+    </div>
+  </div>
+
+  <!-- Pseudo-classes -->
+  <div class="card mb-2 pseudo-demo">
+    <h3>Pseudo-classes & Pseudo-elements</h3>
+    <ul style="list-style:none;font-size:.9rem">
+      <li>:first-child (bold)</li>
+      <li>:nth-child(2) (green)</li>
+      <li>Regular item</li>
+      <li>:last-child (italic)</li>
+    </ul>
+    <hr/>
+    <p>This is styled by <code>p:not(.exclude)</code> — has a left border.</p>
+    <p class="exclude" style="margin-top:.5rem">This has <code>.exclude</code> class — no border.</p>
+    <style>
+      .pseudo-demo::after { content: ' ← (::after pseudo-element on .pseudo-demo)'; font-size:.75rem; color:var(--muted); }
+    </style>
+  </div>
+
+  <!-- Scroll Snap -->
+  <div class="card mb-2">
+    <h3>Scroll Snap (scroll horizontally)</h3>
+    <div class="snap-container">
+      <div class="snap-item">Snap 1</div>
+      <div class="snap-item" style="color:var(--accent2)">Snap 2</div>
+      <div class="snap-item" style="color:var(--accent3)">Snap 3</div>
+      <div class="snap-item">Snap 4</div>
+      <div class="snap-item" style="color:var(--accent2)">Snap 5</div>
+    </div>
+  </div>
+
+  <!-- Overflow & Scrollbar -->
+  <div class="card mb-2">
+    <h3>Overflow & Custom Scrollbar</h3>
+    <div class="overflow-demo">
+      <p>This box has <code>overflow:auto</code> and a custom scrollbar.</p>
+      <p>Scroll down ↓ to see it in action. Line 3. Line 4. Line 5. Line 6. Line 7.</p>
+    </div>
+  </div>
+
+  <!-- Variables inheritance -->
+  <div class="card mb-2">
+    <h3>CSS Variables (Custom Properties)</h3>
+    <div style="--local-color:#ff6584;color:var(--local-color);font-weight:bold">
+      This text uses a <em style="color:var(--local-color)">locally-scoped</em> CSS variable: <code>--local-color</code>.
+    </div>
+  </div>
+
+  <!-- Transitions -->
+  <div class="card mb-2">
+    <h3>Transitions</h3>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap">
+      <div style="width:80px;height:80px;background:var(--surface);border:2px solid var(--accent);border-radius:8px;transition:all .4s ease;cursor:pointer"
+        onmouseenter="this.style.background='var(--accent)';this.style.borderRadius='50%'"
+        onmouseleave="this.style.background='var(--surface)';this.style.borderRadius='8px'">
+        <p style="text-align:center;line-height:80px;font-size:.7rem;color:var(--muted)">Hover</p>
+      </div>
+      <div style="width:80px;height:80px;background:var(--accent2);border-radius:8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);cursor:pointer"
+        onmouseenter="this.style.transform='scale(1.3) rotate(15deg)'"
+        onmouseleave="this.style.transform=''">
+        <p style="text-align:center;line-height:80px;font-size:.7rem">Scale</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aspect Ratio -->
+  <div class="card mb-2">
+    <h3>Aspect Ratio 16:9</h3>
+    <div class="aspect-box">aspect-ratio: 16/9</div>
+  </div>
+
+  <!-- Responsive -->
+  <div class="card">
+    <h3>Responsive (resize window)</h3>
+    <div class="grid-2">
+      <div class="box box-purple" style="padding:1rem;text-align:center">Column 1</div>
+      <div class="box box-pink"   style="padding:1rem;text-align:center">Column 2</div>
+    </div>
+    <p class="mt-1" style="font-size:.85rem">Above uses <code>grid-template-columns: repeat(2, 1fr)</code> — collapses to 1 column on mobile via media query.</p>
+  </div>
+</div>
+
+<!-- =========================================================
+     SECTION 3: JAVASCRIPT
+     ========================================================= -->
+<div class="section" id="js-sec">
+  <span class="sec-label">Section 3</span>
+  <h2>JavaScript — Core Concepts</h2>
+
+  <div class="grid-3 mb-2">
+    <!-- Variables -->
+    <div class="card">
+      <h3>Variables</h3>
+      <pre><code>var x = 1;    // function scope
+let y = 2;    // block scope
+const Z = 3;  // immutable ref</code></pre>
+      <p id="var-out" style="font-size:.85rem;margin-top:.5rem"></p>
+    </div>
+
+    <!-- Data Types -->
+    <div class="card">
+      <h3>Data Types</h3>
+      <pre><code>String   Number  Boolean
+null     undefined  Symbol
+BigInt   Object  Array
+Function  RegExp  Date</code></pre>
+    </div>
+
+    <!-- Operators -->
+    <div class="card">
+      <h3>Operators</h3>
+      <pre><code>+  -  *  /  %  **
+==  ===  !=  !==  &lt;  &gt;
+&&  ||  !  ??  ?.
+typeof  instanceof
+&  |  ^  ~  &lt;&lt;  &gt;&gt;</code></pre>
+    </div>
+
+    <!-- Control Flow -->
+    <div class="card">
+      <h3>Control Flow</h3>
+      <pre><code>if / else if / else
+switch / case / default
+for / while / do-while
+for...of  for...in
+break  continue  return</code></pre>
+    </div>
+
+    <!-- Functions -->
+    <div class="card">
+      <h3>Functions</h3>
+      <pre><code>function decl(a, b) {}
+const expr = function() {};
+const arrow = (x) => x * 2;
+const default_ = (a=1) => a;
+const rest = (...args) => args;
+async function fetch() {}</code></pre>
+    </div>
+
+    <!-- Arrays -->
+    <div class="card">
+      <h3>Arrays & Methods</h3>
+      <pre><code>arr.map()    arr.filter()
+arr.reduce() arr.find()
+arr.forEach() arr.some()
+arr.every()  arr.flat()
+arr.sort()   arr.splice()
+[...spread]  destructure</code></pre>
+      <p id="arr-out" style="font-size:.8rem;margin-top:.5rem;color:var(--accent3)"></p>
+    </div>
+
+    <!-- Objects -->
+    <div class="card">
+      <h3>Objects</h3>
+      <pre><code>const obj = { a: 1, b: 2 };
+const { a, b } = obj; // destruct
+const copy = { ...obj };
+Object.keys(obj)
+Object.values(obj)
+Object.entries(obj)</code></pre>
+    </div>
+
+    <!-- Classes -->
+    <div class="card">
+      <h3>Classes & OOP</h3>
+      <pre><code>class Animal {
+  #name; // private
+  constructor(n) { this.#name=n; }
+  speak() { return this.#name; }
+}
+class Dog extends Animal {
+  speak() { return super.speak()+'!'; }
+}</code></pre>
+      <p id="class-out" style="font-size:.8rem;margin-top:.5rem;color:var(--accent3)"></p>
+    </div>
+
+    <!-- Promises & Async -->
+    <div class="card">
+      <h3>Promises & Async/Await</h3>
+      <pre><code>const p = new Promise((res, rej) =>
+  setTimeout(res, 1000, 'done'));
+
+async function load() {
+  const data = await fetch(url);
+  return data.json();
+}
+
+Promise.all([p1, p2, p3])
+Promise.race([p1, p2])</code></pre>
+    </div>
+  </div>
+
+  <!-- Live JS Demos -->
+  <div class="card mb-2">
+    <h3>Live: DOM Manipulation</h3>
+    <div id="dom-demo" style="background:var(--surface);border-radius:8px;padding:1rem;min-height:60px;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+      <span style="color:var(--muted);font-size:.85rem">Boxes appear here ↓</span>
+    </div>
+    <div class="flex gap-1 mt-2 flex-wrap">
+      <button class="btn btn-primary" onclick="addBox()">Add Box</button>
+      <button class="btn btn-danger" onclick="removeBox()">Remove Box</button>
+      <button class="btn btn-outline" onclick="shuffleBoxes()">Shuffle Colors</button>
+      <button class="btn btn-success" onclick="clearBoxes()">Clear All</button>
+    </div>
+  </div>
+
+  <!-- Events -->
+  <div class="card mb-2">
+    <h3>Events</h3>
+    <div id="event-area"
+      style="background:var(--surface);border-radius:8px;padding:2rem;text-align:center;cursor:crosshair;user-select:none;font-size:.85rem;color:var(--muted);min-height:80px;border:1px dashed var(--border)"
+      onclick="logEvent('click',event)"
+      ondblclick="logEvent('dblclick',event)"
+      onmousemove="trackMouse(event)"
+      oncontextmenu="logEvent('contextmenu',event);return false"
+      onkeydown="logEvent('keydown',event)" tabindex="0"
+    >
+      Click · Double-click · Right-click · Move Mouse · Focus + Type
+    </div>
+    <div id="event-log" style="margin-top:.5rem;font-size:.8rem;color:var(--accent3);font-family:var(--font-mono);min-height:20px"></div>
+  </div>
+
+  <!-- LocalStorage -->
+  <div class="card mb-2">
+    <h3>localStorage / sessionStorage / Cookies</h3>
+    <div class="flex gap-1 align-center flex-wrap">
+      <input type="text" id="ls-val" placeholder="Enter value..." style="max-width:200px"/>
+      <button class="btn btn-primary" onclick="lsSave()">Save to localStorage</button>
+      <button class="btn btn-outline" onclick="lsLoad()">Load</button>
+      <button class="btn btn-danger"  onclick="lsClear()">Clear</button>
+    </div>
+    <p id="ls-out" style="margin-top:.5rem;font-size:.85rem;font-family:var(--font-mono);color:var(--accent3)"></p>
+  </div>
+
+  <!-- JSON -->
+  <div class="card mb-2">
+    <h3>JSON Parse & Stringify</h3>
+    <div class="grid-2">
+      <div>
+        <label>Object → JSON</label>
+        <button class="btn btn-outline w-full mt-1" onclick="doStringify()">JSON.stringify()</button>
+        <pre id="stringify-out" style="margin-top:.5rem;font-size:.8rem;min-height:60px"></pre>
+      </div>
+      <div>
+        <label>JSON → Object</label>
+        <button class="btn btn-outline w-full mt-1" onclick="doParse()">JSON.parse()</button>
+        <pre id="parse-out" style="margin-top:.5rem;font-size:.8rem;min-height:60px"></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fetch API -->
+  <div class="card mb-2">
+    <h3>Fetch API (Live Request)</h3>
+    <button class="btn btn-primary" onclick="doFetch()">Fetch Random User</button>
+    <div id="fetch-out" style="margin-top:.75rem;font-size:.85rem;color:var(--muted)">Press button to make a real API call…</div>
+  </div>
+
+  <!-- Error Handling -->
+  <div class="card mb-2">
+    <h3>Error Handling: try/catch/finally</h3>
+    <div class="flex gap-1 flex-wrap">
+      <button class="btn btn-danger" onclick="triggerError()">Trigger Error</button>
+      <button class="btn btn-success" onclick="triggerSuccess()">Success</button>
+    </div>
+    <div id="error-out" style="margin-top:.5rem;font-size:.85rem;font-family:var(--font-mono)"></div>
+  </div>
+
+  <!-- Regex -->
+  <div class="card mb-2">
+    <h3>Regular Expressions</h3>
+    <div class="flex gap-1 align-center flex-wrap">
+      <input type="text" id="regex-input" placeholder="test@email.com" style="max-width:220px"/>
+      <button class="btn btn-primary" onclick="testRegex()">Test Email Regex</button>
+    </div>
+    <p id="regex-out" style="margin-top:.5rem;font-size:.85rem;font-family:var(--font-mono)"></p>
+  </div>
+
+  <!-- Date & Math -->
+  <div class="card mb-2">
+    <h3>Date · Math · Number</h3>
+    <p id="date-out" style="font-size:.85rem;font-family:var(--font-mono);color:var(--accent3)"></p>
+    <p id="math-out" style="font-size:.85rem;font-family:var(--font-mono);color:var(--accent2)"></p>
+  </div>
+
+  <!-- Higher-order Functions -->
+  <div class="card mb-2">
+    <h3>Higher-order Functions Live</h3>
+    <p id="hof-out" style="font-size:.85rem;font-family:var(--font-mono);color:var(--accent3)"></p>
+  </div>
+
+  <!-- Generators & Iterators -->
+  <div class="card mb-2">
+    <h3>Generator Function</h3>
+    <button class="btn btn-outline" onclick="nextGen()">Next Value</button>
+    <p id="gen-out" style="margin-top:.5rem;font-family:var(--font-mono);font-size:.85rem;color:var(--accent3)"></p>
+  </div>
+
+  <!-- Proxy & Reflect -->
+  <div class="card mb-2">
+    <h3>Proxy & Reflect</h3>
+    <button class="btn btn-outline" onclick="demoProxy()">Demo Proxy</button>
+    <p id="proxy-out" style="margin-top:.5rem;font-family:var(--font-mono);font-size:.85rem;color:var(--accent3)"></p>
+  </div>
+
+  <!-- Web APIs -->
+  <div class="card mb-2">
+    <h3>Web APIs</h3>
+    <div class="flex gap-1 flex-wrap">
+      <button class="btn btn-outline" onclick="clipboardCopy()">Copy to Clipboard</button>
+      <button class="btn btn-outline" onclick="doGeoLocation()">GeoLocation</button>
+      <button class="btn btn-outline" onclick="doVibrate()">Vibrate (mobile)</button>
+      <button class="btn btn-outline" onclick="doNotification()">Notification API</button>
+      <button class="btn btn-outline" onclick="openFullscreen()">Fullscreen</button>
+    </div>
+    <p id="webapi-out" style="margin-top:.5rem;font-size:.8rem;color:var(--accent3);font-family:var(--font-mono)"></p>
+  </div>
+
+  <!-- Canvas Drawing -->
+  <div class="card mb-2">
+    <h3>Canvas API</h3>
+    <canvas id="myCanvas" width="500" height="160" style="max-width:100%"></canvas>
+    <div class="flex gap-1 mt-2 flex-wrap">
+      <button class="btn btn-primary" onclick="drawCanvas()">Draw Shapes</button>
+      <button class="btn btn-outline" onclick="clearCanvas()">Clear</button>
+      <button class="btn btn-success" onclick="animateCanvas()">Animate Particles</button>
+    </div>
+  </div>
+
+  <!-- Intersection Observer -->
+  <div class="card mb-2">
+    <h3>Intersection Observer</h3>
+    <p style="font-size:.85rem">Cards below fade in when they enter the viewport (scroll down if needed):</p>
+    <div style="margin-top:.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.5rem">
+      <div class="io-card" style="opacity:0;transition:opacity .6s,transform .6s;transform:translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center;font-size:.85rem">IO Box 1</div>
+      <div class="io-card" style="opacity:0;transition:opacity .6s .1s,transform .6s .1s;transform:translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center;font-size:.85rem">IO Box 2</div>
+      <div class="io-card" style="opacity:0;transition:opacity .6s .2s,transform .6s .2s;transform:translateY(20px);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1rem;text-align:center;font-size:.85rem">IO Box 3</div>
+    </div>
+  </div>
+
+  <!-- Drag and Drop -->
+  <div class="card mb-2">
+    <h3>Drag & Drop API</h3>
+    <div class="flex gap-1 flex-wrap mb-1">
+      <div class="draggable badge" draggable="true" id="drag1" ondragstart="onDragStart(event)" style="padding:.5rem 1rem;font-size:.95rem">🟣 Drag Me</div>
+      <div class="draggable badge badge-red" draggable="true" id="drag2" ondragstart="onDragStart(event)" style="padding:.5rem 1rem;font-size:.95rem">🔴 Or Me</div>
+    </div>
+    <div class="drop-zone" ondragover="onDragOver(event)" ondrop="onDrop(event)" ondragleave="onDragLeave(event)">
+      Drop Here
+    </div>
+    <p id="drop-out" style="margin-top:.5rem;font-size:.85rem;color:var(--accent3)"></p>
+  </div>
+
+  <!-- Web Workers Note -->
+  <div class="card mb-2">
+    <h3>Web Workers (Concept)</h3>
+    <pre><code>// main.js
+const worker = new Worker('worker.js');
+worker.postMessage({ task: 'compute', n: 1000 });
+worker.onmessage = (e) => console.log(e.data);
+
+// worker.js
+self.onmessage = (e) => {
+  const result = heavyCompute(e.data.n);
+  self.postMessage(result);
+};</code></pre>
+    <p style="font-size:.8rem">Web Workers run scripts in background threads, keeping the UI non-blocking.</p>
+  </div>
+
+  <!-- Closures, IIFE, Scope -->
+  <div class="card">
+    <h3>Closures · IIFE · Hoisting · Scope</h3>
+    <pre><code>// Closure
+function counter() {
+  let count = 0;
+  return () => ++count; // captures count
+}
+const inc = counter();
+inc(); // 1  inc(); // 2
+
+// IIFE
+(function() { console.log('runs immediately'); })();
+
+// Hoisting: var is hoisted, let/const are not
+// Temporal Dead Zone with let/const
+
+// Scope Chain: inner → outer → global</code></pre>
+    <p id="closure-out" style="margin-top:.5rem;font-size:.85rem;font-family:var(--font-mono);color:var(--accent3)"></p>
+  </div>
+</div>
+
+<!-- =========================================================
+     SECTION 4: INTERACTIVE COMPONENTS
+     ========================================================= -->
+<div class="section" id="interactive">
+  <span class="sec-label">Section 4</span>
+  <h2>Interactive UI Components</h2>
+
+  <!-- Tabs -->
+  <div class="card mb-2">
+    <h3>Tabs</h3>
+    <div class="tab-btns">
+      <button class="tab-btn active" onclick="switchTab(this,'t1')">HTML</button>
+      <button class="tab-btn" onclick="switchTab(this,'t2')">CSS</button>
+      <button class="tab-btn" onclick="switchTab(this,'t3')">JavaScript</button>
+    </div>
+    <div id="t1" class="tab-panel active box box-purple" style="padding:1rem"><strong>HTML</strong> is the backbone — structure, semantics, accessibility.</div>
+    <div id="t2" class="tab-panel box box-pink" style="padding:1rem"><strong>CSS</strong> controls layout, color, typography, animations, and responsiveness.</div>
+    <div id="t3" class="tab-panel box box-green" style="padding:1rem"><strong>JavaScript</strong> adds behavior, interactivity, APIs, and dynamic content.</div>
+  </div>
+
+  <!-- Accordion -->
+  <div class="card mb-2">
+    <h3>Accordion</h3>
+    <button class="accordion-btn" onclick="toggleAccordion(this)">
+      What is the DOM? <span class="icon">▼</span>
+    </button>
+    <div class="accordion-content">
+      <div class="accordion-content-inner">The Document Object Model (DOM) is a programming interface that represents the structure of an HTML or XML document as a tree of objects.</div>
+    </div>
+    <button class="accordion-btn" onclick="toggleAccordion(this)">
+      What is the event loop? <span class="icon">▼</span>
+    </button>
+    <div class="accordion-content">
+      <div class="accordion-content-inner">The event loop is a mechanism in JavaScript's runtime that allows it to perform non-blocking operations by offloading operations to the system kernel when possible.</div>
+    </div>
+    <button class="accordion-btn" onclick="toggleAccordion(this)">
+      What is a closure? <span class="icon">▼</span>
+    </button>
+    <div class="accordion-content">
+      <div class="accordion-content-inner">A closure is a function that has access to its outer function's scope even after the outer function has returned. It 'closes over' variables from its lexical scope.</div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="card mb-2">
+    <h3>Modal Dialog</h3>
+    <button class="btn btn-primary" onclick="openModal()">Open Modal</button>
+  </div>
+
+  <!-- Live Calculator -->
+  <div class="card mb-2">
+    <h3>Live Calculator</h3>
+    <div style="display:grid;grid-template-columns:1fr auto auto 1fr;gap:.5rem;align-items:center;max-width:360px">
+      <input type="number" id="calc-a" value="10" style="text-align:right"/>
+      <select id="calc-op" style="width:60px;text-align:center">
+        <option>+</option><option>-</option><option>*</option><option>/</option><option>**</option>
+      </select>
+      <input type="number" id="calc-b" value="5" style="text-align:center"/>
+      <div style="text-align:center;font-size:1.1rem;font-family:var(--font-mono);color:var(--accent3);font-weight:bold" id="calc-result">= 15</div>
+    </div>
+    <button class="btn btn-primary mt-2" onclick="calculate()">Calculate</button>
+  </div>
+
+  <!-- Color Mixer -->
+  <div class="card mb-2">
+    <h3>Live Color Mixer (CSS Variables via JS)</h3>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:.5rem 1rem;align-items:center;max-width:400px">
+      <label>R:</label><input type="range" id="cr" min="0" max="255" value="108" oninput="mixColor()"/>
+      <label>G:</label><input type="range" id="cg" min="0" max="255" value="99"  oninput="mixColor()"/>
+      <label>B:</label><input type="range" id="cb" min="0" max="255" value="255" oninput="mixColor()"/>
+    </div>
+    <div id="color-preview" style="margin-top:1rem;height:60px;border-radius:var(--radius);background:rgb(108,99,255);transition:background .2s;display:flex;align-items:center;justify-content:center;font-weight:bold">
+      rgb(108, 99, 255)
+    </div>
+  </div>
+
+  <!-- Stopwatch -->
+  <div class="card mb-2">
+    <h3>Stopwatch</h3>
+    <div style="font-size:3rem;font-family:var(--font-mono);font-weight:bold;letter-spacing:.1em;color:var(--accent)" id="sw-display">00:00.000</div>
+    <div class="flex gap-1 mt-2 flex-wrap">
+      <button class="btn btn-success" onclick="swStart()">Start</button>
+      <button class="btn btn-danger"  onclick="swStop()">Stop</button>
+      <button class="btn btn-outline" onclick="swReset()">Reset</button>
+      <button class="btn btn-primary" onclick="swLap()">Lap</button>
+    </div>
+    <ul id="sw-laps" style="margin-top:.5rem;list-style:none;font-family:var(--font-mono);font-size:.85rem;color:var(--muted)"></ul>
+  </div>
+
+  <!-- Theme Toggle -->
+  <div class="card mb-2">
+    <h3>Dynamic Theme Toggle</h3>
+    <button class="btn btn-outline" id="theme-btn" onclick="toggleTheme()">☀ Switch to Light Mode</button>
+    <p style="font-size:.85rem;margin-top:.5rem">Changes CSS custom properties via JavaScript on <code>:root</code>.</p>
+  </div>
+
+  <!-- Toasts -->
+  <div class="card mb-2">
+    <h3>Toast Notifications</h3>
+    <div class="flex gap-1 flex-wrap">
+      <button class="btn btn-success" onclick="showToast('Saved successfully!','success')">✅ Success Toast</button>
+      <button class="btn btn-danger"  onclick="showToast('Something went wrong.','error')">❌ Error Toast</button>
+      <button class="btn btn-primary" onclick="showToast('New update available.','info')">ℹ Info Toast</button>
+    </div>
+  </div>
+
+  <!-- Step Indicator -->
+  <div class="card mb-2">
+    <h3>Step Indicator</h3>
+    <div class="steps" id="steps-row">
+      <div class="step done">Account</div>
+      <div class="step done">Profile</div>
+      <div class="step">Verify</div>
+      <div class="step">Done</div>
+    </div>
+    <div class="flex gap-1 mt-2">
+      <button class="btn btn-outline" onclick="prevStep()">← Back</button>
+      <button class="btn btn-primary" onclick="nextStep()">Next →</button>
+    </div>
+  </div>
+
+  <!-- Skeleton Loader -->
+  <div class="card mb-2">
+    <h3>Skeleton Loader</h3>
+    <button class="btn btn-outline" onclick="toggleSkeleton()">Toggle Loading State</button>
+    <div id="skeleton-wrap" style="margin-top:1rem">
+      <div id="skeleton-placeholder">
+        <div class="skeleton skeleton-line w80"></div>
+        <div class="skeleton skeleton-line w60"></div>
+        <div class="skeleton skeleton-line w40"></div>
+      </div>
+      <div id="real-content" style="display:none">
+        <p style="color:var(--text);margin:0"><strong>Real Content Loaded!</strong> The skeleton was replaced with actual data.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Search -->
+  <div class="card mb-2">
+    <h3>Live Search / Filter</h3>
+    <input type="text" id="search-input" placeholder="Search frameworks..." oninput="filterList()"/>
+    <ul id="search-list" style="margin-top:.75rem;list-style:none;display:flex;flex-wrap:wrap;gap:.4rem"></ul>
+  </div>
+
+  <!-- Counter -->
+  <div class="card">
+    <h3>Animated Number Counter</h3>
+    <div class="flex gap-2 flex-wrap">
+      <div style="text-align:center">
+        <div class="counter-num" data-target="1000" style="font-size:2.5rem;font-weight:900;font-family:var(--font-display);color:var(--accent)">0</div>
+        <div style="font-size:.8rem;color:var(--muted)">GitHub Stars</div>
+      </div>
+      <div style="text-align:center">
+        <div class="counter-num" data-target="250" style="font-size:2.5rem;font-weight:900;font-family:var(--font-display);color:var(--accent2)">0</div>
+        <div style="font-size:.8rem;color:var(--muted)">Components</div>
+      </div>
+      <div style="text-align:center">
+        <div class="counter-num" data-target="99" style="font-size:2.5rem;font-weight:900;font-family:var(--font-display);color:var(--accent3)">0</div>
+        <div style="font-size:.8rem;color:var(--muted)">Concepts Covered</div>
+      </div>
+    </div>
+    <button class="btn btn-primary mt-2" onclick="startCounters()">Animate Counters</button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModalBackdrop(event)">
+  <div class="modal">
+    <h3 style="color:var(--accent);margin-bottom:.5rem">Modal Dialog</h3>
+    <p>This modal uses <code>position:fixed</code>, a backdrop, <code>backdrop-filter:blur</code>, and JavaScript to toggle visibility. Press <kbd>Escape</kbd> or click outside to close.</p>
+    <div class="flex gap-1 mt-2">
+      <button class="btn btn-primary" onclick="closeModal()">Got it!</button>
+      <button class="btn btn-outline" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container"></div>
+
+<!-- FOOTER -->
+<footer>
+  <p>HTML5 · CSS3 · Vanilla JavaScript ES2023+</p>
+  <p style="margin-top:.25rem">Every concept. One file. Zero frameworks. ✦</p>
+</footer>
+
+<!-- ================================================================
+     JAVASCRIPT — INTERNAL
+     ================================================================ -->
+<script>
+  /* =============================================
+     1. Variable / Type Demos (on load)
+     ============================================= */
+  (function() {
+    const varEl = document.getElementById('var-out');
+    let y = 2; const Z = 3;
+    varEl.textContent = `typeof "hi"=${typeof "hi"}, typeof 1=${typeof 1}, typeof true=${typeof true}, typeof null=${typeof null}, typeof {}=${typeof {}}, typeof undefined=${typeof undefined}`;
+
+    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const arrEl = document.getElementById('arr-out');
+    const evens = arr.filter(n => n % 2 === 0);
+    const doubled = evens.map(n => n * 2);
+    const sum = doubled.reduce((a, b) => a + b, 0);
+    arrEl.textContent = `filter evens→[${evens}], map×2→[${doubled}], reduce sum=${sum}`;
+
+    // Classes
+    class Animal {
+      #name;
+      constructor(n) { this.#name = n; }
+      speak() { return this.#name; }
+    }
+    class Dog extends Animal {
+      speak() { return super.speak() + ' says: Woof!'; }
+    }
+    document.getElementById('class-out').textContent = new Dog('Rex').speak();
+
+    // Date & Math
+    const now = new Date();
+    document.getElementById('date-out').textContent =
+      `Now: ${now.toLocaleString()} | ISO: ${now.toISOString().split('T')[0]}`;
+    document.getElementById('math-out').textContent =
+      `PI=~${Math.PI.toFixed(4)} | sqrt(144)=${Math.sqrt(144)} | rand=${Math.random().toFixed(4)} | max(3,9,1)=${Math.max(3,9,1)} | floor(4.7)=${Math.floor(4.7)}`;
+
+    // Higher-order functions
+    const people = [{name:'Alice',age:30},{name:'Bob',age:25},{name:'Charlie',age:35}];
+    const names = people
+      .filter(p => p.age >= 30)
+      .map(p => p.name)
+      .sort();
+    document.getElementById('hof-out').textContent =
+      `filter age≥30 → map names → sort: [${names.join(', ')}]`;
+
+    // Closure demo
+    function counter() {
+      let count = 0;
+      return () => ++count;
+    }
+    const inc = counter();
+    inc(); inc();
+    document.getElementById('closure-out').textContent =
+      `counter() closure: inc()=${inc()}, inc()=${inc()}, inc()=${inc()} — count persists!`;
+  })();
+
+  /* =============================================
+     2. DOM Manipulation
+     ============================================= */
+  const COLORS = ['#6c63ff','#ff6584','#43e97b','#ff9f43','#54a0ff','#ff6b6b','#ffd32a'];
+  let boxCount = 0;
+
+  function addBox() {
+    const dom = document.getElementById('dom-demo');
+    const first = dom.querySelector('span');
+    if (first) first.remove();
+    const box = document.createElement('div');
+    box.style.cssText = `width:48px;height:48px;border-radius:8px;background:${COLORS[boxCount % COLORS.length]};display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:bold;color:#fff;cursor:pointer;transition:transform .2s`;
+    box.textContent = ++boxCount;
+    box.title = 'Click to remove';
+    box.onclick = () => box.remove();
+    box.onmouseenter = () => box.style.transform = 'scale(1.15) rotate(5deg)';
+    box.onmouseleave = () => box.style.transform = '';
+    dom.appendChild(box);
+  }
+
+  function removeBox() {
+    const dom = document.getElementById('dom-demo');
+    const boxes = dom.querySelectorAll('div');
+    if (boxes.length) boxes[boxes.length - 1].remove();
+  }
+
+  function shuffleBoxes() {
+    document.querySelectorAll('#dom-demo div').forEach(b => {
+      b.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
+    });
+  }
+
+  function clearBoxes() {
+    const dom = document.getElementById('dom-demo');
+    dom.innerHTML = '<span style="color:var(--muted);font-size:.85rem">Boxes appear here ↓</span>';
+    boxCount = 0;
+  }
+
+  /* =============================================
+     3. Events
+     ============================================= */
+  function logEvent(type, e) {
+    const log = document.getElementById('event-log');
+    log.textContent = `[${type}] at (${e.clientX ?? '—'}, ${e.clientY ?? '—'}) | key=${e.key ?? '—'}`;
+    log.style.color = type === 'click' ? 'var(--accent)' : type === 'dblclick' ? 'var(--accent2)' : 'var(--accent3)';
+  }
+
+  function trackMouse(e) {
+    const area = document.getElementById('event-area');
+    const rect = area.getBoundingClientRect();
+    area.style.background = `radial-gradient(circle at ${e.clientX - rect.left}px ${e.clientY - rect.top}px, rgba(108,99,255,.2), transparent 60%)`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  /* =============================================
+     4. localStorage
+     ============================================= */
+  function lsSave() {
+    const v = document.getElementById('ls-val').value;
+    localStorage.setItem('my-val', v);
+    document.getElementById('ls-out').textContent = `Saved: "${v}"`;
+    document.getElementById('ls-out').style.color = 'var(--accent3)';
+  }
+  function lsLoad() {
+    const v = localStorage.getItem('my-val');
+    document.getElementById('ls-out').textContent = v ? `Loaded: "${v}"` : 'Nothing saved yet.';
+  }
+  function lsClear() {
+    localStorage.removeItem('my-val');
+    document.getElementById('ls-out').textContent = 'Cleared!';
+    document.getElementById('ls-out').style.color = 'var(--accent2)';
+  }
+
+  /* =============================================
+     5. JSON
+     ============================================= */
+  function doStringify() {
+    const obj = { name: 'Claude', version: 3, tags: ['AI', 'helpful'], active: true };
+    document.getElementById('stringify-out').textContent = JSON.stringify(obj, null, 2);
+  }
+  function doParse() {
+    const json = '{"city":"Dhaka","country":"Bangladesh","pop":21000000}';
+    const obj = JSON.parse(json);
+    document.getElementById('parse-out').textContent =
+      `city: ${obj.city}\ncountry: ${obj.country}\npop: ${obj.pop.toLocaleString()}`;
+  }
+
+  /* =============================================
+     6. Fetch API
+     ============================================= */
+  async function doFetch() {
+    const out = document.getElementById('fetch-out');
+    out.textContent = 'Loading…';
+    out.style.color = 'var(--muted)';
+    try {
+      const res = await fetch('https://randomuser.me/api/');
+      const data = await res.json();
+      const u = data.results[0];
+      out.innerHTML = `<strong style="color:var(--text)">${u.name.first} ${u.name.last}</strong><br>
+        📧 ${u.email}<br>📍 ${u.location.city}, ${u.location.country}<br>🎂 ${new Date(u.dob.date).toLocaleDateString()}`;
+      out.style.color = 'var(--accent3)';
+    } catch (err) {
+      out.textContent = `Error: ${err.message}`;
+      out.style.color = 'var(--accent2)';
+    }
+  }
+
+  /* =============================================
+     7. Error Handling
+     ============================================= */
+  function triggerError() {
+    const out = document.getElementById('error-out');
+    try {
+      null.property; // throws
+    } catch (e) {
+      out.innerHTML = `<span style="color:var(--accent2)">catch: ${e.name}: ${e.message}</span>`;
+    } finally {
+      out.innerHTML += `<br><span style="color:var(--muted)">finally: always runs</span>`;
+    }
+  }
+  function triggerSuccess() {
+    const out = document.getElementById('error-out');
+    try {
+      const result = [1, 2, 3].reduce((a, b) => a + b);
+      out.innerHTML = `<span style="color:var(--accent3)">try: result = ${result} ✓</span>`;
+    } catch (e) {
+      out.textContent = 'Error: ' + e.message;
+    } finally {
+      out.innerHTML += `<br><span style="color:var(--muted)">finally: always runs</span>`;
+    }
+  }
+
+  /* =============================================
+     8. Regex
+     ============================================= */
+  function testRegex() {
+    const input = document.getElementById('regex-input').value;
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const out = document.getElementById('regex-out');
+    if (emailRe.test(input)) {
+      out.textContent = '✅ Valid email';
+      out.style.color = 'var(--accent3)';
+    } else {
+      out.textContent = '❌ Invalid email';
+      out.style.color = 'var(--accent2)';
+    }
+  }
+
+  /* =============================================
+     9. Generator
+     ============================================= */
+  function* fibonacci() {
+    let [a, b] = [0, 1];
+    while (true) { yield a; [a, b] = [b, a + b]; }
+  }
+  const gen = fibonacci();
+  function nextGen() {
+    const val = gen.next().value;
+    document.getElementById('gen-out').textContent = `Next Fibonacci: ${val}`;
+  }
+
+  /* =============================================
+     10. Proxy & Reflect
+     ============================================= */
+  function demoProxy() {
+    const target = { name: 'Claude', version: 4 };
+    const handler = {
+      get(t, prop) {
+        return prop in t ? `[Proxied] ${Reflect.get(t, prop)}` : `[Missing: ${prop}]`;
+      }
+    };
+    const p = new Proxy(target, handler);
+    document.getElementById('proxy-out').textContent =
+      `name="${p.name}" | version="${p.version}" | foo="${p.foo}"`;
+  }
+
+  /* =============================================
+     11. Web APIs
+     ============================================= */
+  async function clipboardCopy() {
+    try {
+      await navigator.clipboard.writeText('Copied from HTML+CSS+JS Everything File!');
+      document.getElementById('webapi-out').textContent = '✅ Copied to clipboard!';
+    } catch { document.getElementById('webapi-out').textContent = '❌ Clipboard denied (HTTPS required)'; }
+  }
+
+  function doGeoLocation() {
+    const out = document.getElementById('webapi-out');
+    if (!navigator.geolocation) { out.textContent = 'Geolocation not supported'; return; }
+    out.textContent = 'Fetching location…';
+    navigator.geolocation.getCurrentPosition(
+      pos => { out.textContent = `📍 Lat: ${pos.coords.latitude.toFixed(4)}, Lng: ${pos.coords.longitude.toFixed(4)}`; },
+      err => { out.textContent = `❌ ${err.message}`; }
+    );
+  }
+
+  function doVibrate() {
+    const out = document.getElementById('webapi-out');
+    if (navigator.vibrate) {
+      navigator.vibrate([200, 100, 200]);
+      out.textContent = '📳 Vibrating (200ms, pause, 200ms)';
+    } else {
+      out.textContent = 'Vibration not supported on this device';
+    }
+  }
+
+  async function doNotification() {
+    const out = document.getElementById('webapi-out');
+    if (!('Notification' in window)) { out.textContent = 'Notifications not supported'; return; }
+    const perm = await Notification.requestPermission();
+    if (perm === 'granted') {
+      new Notification('Hello from the Everything File!', { body: 'Notification API works ✅', icon: '' });
+      out.textContent = '🔔 Notification sent!';
+    } else {
+      out.textContent = '❌ Notification permission denied';
+    }
+  }
+
+  function openFullscreen() {
+    const el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen();
+    document.getElementById('webapi-out').textContent = '⛶ Fullscreen requested';
+  }
+
+  /* =============================================
+     12. Canvas
+     ============================================= */
+  const canvas = document.getElementById('myCanvas');
+  const ctx = canvas.getContext('2d');
+  let animId = null;
+
+  function drawCanvas() {
+    cancelAnimationFrame(animId);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#13131a';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Rectangle
+    ctx.fillStyle = '#6c63ff';
+    ctx.fillRect(20, 30, 80, 80);
+
+    // Circle
+    ctx.beginPath();
+    ctx.arc(190, 70, 45, 0, Math.PI * 2);
+    ctx.fillStyle = '#ff6584';
+    ctx.fill();
+
+    // Triangle
+    ctx.beginPath();
+    ctx.moveTo(290, 120); ctx.lineTo(250, 30); ctx.lineTo(330, 30);
+    ctx.closePath();
+    ctx.fillStyle = '#43e97b';
+    ctx.fill();
+
+    // Text
+    ctx.fillStyle = '#e8e8f0';
+    ctx.font = 'bold 16px Georgia';
+    ctx.fillText('Canvas Text', 360, 60);
+
+    // Gradient rect
+    const grad = ctx.createLinearGradient(360, 80, 460, 80);
+    grad.addColorStop(0, '#6c63ff'); grad.addColorStop(1, '#ff6584');
+    ctx.fillStyle = grad;
+    ctx.fillRect(360, 80, 100, 40);
+
+    // Arc / Pie
+    ctx.beginPath();
+    ctx.moveTo(460, 70);
+    ctx.arc(460, 70, 45, 0, Math.PI * 1.5);
+    ctx.closePath();
+    ctx.fillStyle = '#ffd32a';
+    ctx.fill();
+
+    // Stroke
+    ctx.strokeStyle = '#6c63ff';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(20, 120, 200, 30);
+  }
+
+  function clearCanvas() {
+    cancelAnimationFrame(animId);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  function animateCanvas() {
+    cancelAnimationFrame(animId);
+    const particles = Array.from({ length: 60 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 4 + 2,
+      dx: (Math.random() - .5) * 2,
+      dy: (Math.random() - .5) * 2,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)]
+    }));
+
+    function frame() {
+      ctx.fillStyle = 'rgba(10,10,15,.2)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.x += p.dx; p.y += p.dy;
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      });
+      animId = requestAnimationFrame(frame);
+    }
+    frame();
+  }
+
+  /* =============================================
+     13. Intersection Observer
+     ============================================= */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.io-card').forEach(el => io.observe(el));
+
+  /* =============================================
+     14. Drag and Drop
+     ============================================= */
+  let dragged = null;
+  function onDragStart(e) { dragged = e.target; e.dataTransfer.effectAllowed = 'move'; }
+  function onDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('over'); }
+  function onDragLeave(e) { e.currentTarget.classList.remove('over'); }
+  function onDrop(e) {
+    e.preventDefault();
+    e.currentTarget.classList.remove('over');
+    document.getElementById('drop-out').textContent = `Dropped: "${dragged.textContent.trim()}" ✅`;
+  }
+
+  /* =============================================
+     15. Modal
+     ============================================= */
+  function openModal() { document.getElementById('modal-backdrop').classList.add('open'); }
+  function closeModal() { document.getElementById('modal-backdrop').classList.remove('open'); }
+  function closeModalBackdrop(e) { if (e.target === e.currentTarget) closeModal(); }
+
+  /* =============================================
+     16. Tabs
+     ============================================= */
+  function switchTab(btn, id) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(id).classList.add('active');
+  }
+
+  /* =============================================
+     17. Accordion
+     ============================================= */
+  function toggleAccordion(btn) {
+    const content = btn.nextElementSibling;
+    const isOpen = content.classList.contains('open');
+    document.querySelectorAll('.accordion-btn').forEach(b => {
+      b.classList.remove('open');
+      b.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) { btn.classList.add('open'); content.classList.add('open'); }
+  }
+
+  /* =============================================
+     18. Calculator
+     ============================================= */
+  function calculate() {
+    const a = parseFloat(document.getElementById('calc-a').value);
+    const b = parseFloat(document.getElementById('calc-b').value);
+    const op = document.getElementById('calc-op').value;
+    const ops = { '+': a+b, '-': a-b, '*': a*b, '/': a/b, '**': a**b };
+    const r = ops[op];
+    document.getElementById('calc-result').textContent = `= ${Number.isFinite(r) ? r : 'Error'}`;
+    document.getElementById('calc-out').value = Number.isFinite(r) ? r : 'Error';
+  }
+
+  /* =============================================
+     19. Color Mixer
+     ============================================= */
+  function mixColor() {
+    const r = document.getElementById('cr').value;
+    const g = document.getElementById('cg').value;
+    const b = document.getElementById('cb').value;
+    const preview = document.getElementById('color-preview');
+    preview.style.background = `rgb(${r},${g},${b})`;
+    preview.textContent = `rgb(${r}, ${g}, ${b})`;
+    preview.style.color = (parseInt(r) * 0.299 + parseInt(g) * 0.587 + parseInt(b) * 0.114) > 160 ? '#000' : '#fff';
+    document.documentElement.style.setProperty('--accent', `rgb(${r},${g},${b})`);
+  }
+
+  /* =============================================
+     20. Stopwatch
+     ============================================= */
+  let swInterval = null, swElapsed = 0, swLapTime = 0, swLapCount = 0;
+
+  function swFormat(ms) {
+    const m = Math.floor(ms / 60000).toString().padStart(2, '0');
+    const s = Math.floor((ms % 60000) / 1000).toString().padStart(2, '0');
+    const millis = (ms % 1000).toString().padStart(3, '0');
+    return `${m}:${s}.${millis}`;
+  }
+
+  function swStart() {
+    if (swInterval) return;
+    const start = Date.now() - swElapsed;
+    swInterval = setInterval(() => {
+      swElapsed = Date.now() - start;
+      document.getElementById('sw-display').textContent = swFormat(swElapsed);
+    }, 10);
+  }
+
+  function swStop() { clearInterval(swInterval); swInterval = null; }
+
+  function swReset() {
+    swStop(); swElapsed = 0; swLapTime = 0; swLapCount = 0;
+    document.getElementById('sw-display').textContent = '00:00.000';
+    document.getElementById('sw-laps').innerHTML = '';
+  }
+
+  function swLap() {
+    if (!swInterval) return;
+    const lap = swElapsed - swLapTime;
+    swLapTime = swElapsed;
+    const li = document.createElement('li');
+    li.textContent = `Lap ${++swLapCount}: ${swFormat(lap)} (total: ${swFormat(swElapsed)})`;
+    document.getElementById('sw-laps').prepend(li);
+  }
+
+  /* =============================================
+     21. Theme Toggle
+     ============================================= */
+  let isLight = false;
+  function toggleTheme() {
+    isLight = !isLight;
+    const root = document.documentElement;
+    if (isLight) {
+      root.style.setProperty('--bg', '#f0f0f8');
+      root.style.setProperty('--surface', '#e0e0f0');
+      root.style.setProperty('--card', '#ffffff');
+      root.style.setProperty('--border', '#ccccdd');
+      root.style.setProperty('--text', '#111118');
+      root.style.setProperty('--muted', '#555566');
+      document.getElementById('theme-btn').textContent = '🌙 Switch to Dark Mode';
+    } else {
+      root.style.setProperty('--bg', '#0a0a0f');
+      root.style.setProperty('--surface', '#13131a');
+      root.style.setProperty('--card', '#1c1c28');
+      root.style.setProperty('--border', '#2a2a3d');
+      root.style.setProperty('--text', '#e8e8f0');
+      root.style.setProperty('--muted', '#7b7b99');
+      document.getElementById('theme-btn').textContent = '☀ Switch to Light Mode';
+    }
+  }
+
+  /* =============================================
+     22. Toast
+     ============================================= */
+  function showToast(msg, type = 'info') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = msg;
+    container.appendChild(toast);
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transition = 'opacity .4s';
+      setTimeout(() => toast.remove(), 400);
+    }, 3000);
+  }
+
+  /* =============================================
+     23. Step Indicator
+     ============================================= */
+  let currentStep = 2;
+  function updateSteps() {
+    const steps = document.querySelectorAll('#steps-row .step');
+    steps.forEach((s, i) => {
+      s.classList.toggle('done', i < currentStep);
+    });
+  }
+  function nextStep() { if (currentStep < 4) { currentStep++; updateSteps(); } }
+  function prevStep() { if (currentStep > 0) { currentStep--; updateSteps(); } }
+
+  /* =============================================
+     24. Skeleton Toggle
+     ============================================= */
+  let skeletonVisible = true;
+  function toggleSkeleton() {
+    skeletonVisible = !skeletonVisible;
+    document.getElementById('skeleton-placeholder').style.display = skeletonVisible ? 'block' : 'none';
+    document.getElementById('real-content').style.display = skeletonVisible ? 'none' : 'block';
+  }
+
+  /* =============================================
+     25. Live Search
+     ============================================= */
+  const items = ['React', 'Vue', 'Angular', 'Svelte', 'Solid', 'Qwik', 'Ember', 'Backbone', 'Alpine', 'Lit', 'Preact', 'Astro', 'Nuxt', 'Next.js', 'Gatsby'];
+
+  function renderList(filtered) {
+    const ul = document.getElementById('search-list');
+    ul.innerHTML = '';
+    filtered.forEach(item => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="badge" style="background:var(--card);border:1px solid var(--border);color:var(--text)">${item}</span>`;
+      ul.appendChild(li);
+    });
+  }
+
+  function filterList() {
+    const q = document.getElementById('search-input').value.toLowerCase();
+    renderList(items.filter(i => i.toLowerCase().includes(q)));
+  }
+  renderList(items);
+
+  /* =============================================
+     26. Animated Counter
+     ============================================= */
+  function startCounters() {
+    document.querySelectorAll('.counter-num').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const duration = 1200;
+      const step = target / (duration / 16);
+      let current = 0;
+      const interval = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = Math.floor(current).toLocaleString();
+        if (current >= target) clearInterval(interval);
+      }, 16);
+    });
+  }
+
+  /* =============================================
+     27. Init Draws
+     ============================================= */
+  drawCanvas();
+  document.getElementById('dt').valueAsDate = new Date();
+</script>
+</body>
+</html>

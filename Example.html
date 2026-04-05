@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Master</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+        }
+
+        h1 {
+            color: black;
+        }
+
+        #output {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .item {
+            color: blue;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px;
+        }
+
+        ul {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="title">DOM Master</h1>
+
+    <input id="inputBox" type="text" placeholder="Enter text">
+
+    <br><br>
+
+    <button id="addBtn">ADD</button>
+    <button id="removeBtn">REMOVE</button>
+    <button id="toggleBtn">TOGGLE COLOR</button>
+
+    <p id="output">Output will appear here</p>
+
+    <ul id="list"></ul>
+
+<script>
+
+    // 🔹 SELECT ELEMENTS
+    let input = document.getElementById("inputBox");
+    let addBtn = document.getElementById("addBtn");
+    let removeBtn = document.getElementById("removeBtn");
+    let toggleBtn = document.getElementById("toggleBtn");
+    let output = document.getElementById("output");
+    let list = document.getElementById("list");
+
+    // 🔹 ARRAY
+    let arr = [];
+
+    // 🔥 ADD
+    addBtn.addEventListener("click", function() {
+
+        let value = input.value;
+
+        if (value === "") {
+            output.innerHTML = "❌ Empty input!";
+            return;
+        }
+
+        arr.push(value);
+
+        output.innerHTML = "Added: " + value;
+
+        let li = document.createElement("li");
+        li.innerHTML = value;
+
+        // CSS class applied
+        li.classList.add("item");
+
+        list.appendChild(li);
+
+        input.value = "";
+    });
+
+    // 🔥 REMOVE
+    removeBtn.addEventListener("click", function() {
+
+        if (arr.length === 0) {
+            output.innerHTML = "⚠️ Nothing to remove";
+            return;
+        }
+
+        let removed = arr.pop();
+
+        list.lastChild.remove();
+
+        output.innerHTML = "Removed: " + removed;
+    });
+
+    // 🔥 TOGGLE STYLE + CLASS
+    toggleBtn.addEventListener("click", function() {
+
+        if (output.style.color === "red") {
+            output.style.color = "green";
+        } else {
+            output.style.color = "red";
+        }
+
+        output.classList.toggle("highlight");
+    });
+
+    // 🔥 TIMER
+    setTimeout(function() {
+        document.getElementById("title").style.color = "purple";
+    }, 2000);
+
+</script>
+
+</body>
+</html>
