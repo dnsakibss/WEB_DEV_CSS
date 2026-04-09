@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AIUB Midterm Practice</title>
+
+    <!-- INTERNAL CSS -->
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        h1 {
+            color: darkblue;
+        }
+
+        .box {
+            background-color: white;
+            padding: 20px;
+            margin: 20px;
+            border: 2px solid black;
+        }
+
+        #special {
+            color: red;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HTML STRUCTURE -->
+    <h1>AIUB Web Tech Midterm Practice</h1>
+
+    <div class="box">
+        <p id="text">Hello World!</p>
+        <p class="info">This is a paragraph.</p>
+
+        <input type="text" id="inputBox" placeholder="Type something">
+        <br><br>
+
+        <button onclick="changeText()">Change Text</button>
+        <button onclick="changeColor()">Change Color</button>
+        <button onclick="addElement()">Add Element</button>
+        <button onclick="removeElement()">Remove Element</button>
+        <button onclick="toggleClass()">Toggle Highlight</button>
+    </div>
+
+    <div id="container" class="box">
+        <p>Dynamic content appears here</p>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        // 1. Change text using DOM
+        function changeText() {
+            let input = document.getElementById("inputBox").value;
+            document.getElementById("text").innerHTML = input;
+        }
+
+        // 2. Change CSS using JS
+        function changeColor() {
+            let el = document.getElementById("text");
+            el.style.color = "green";
+            el.style.fontSize = "20px";
+        }
+
+        // 3. Add new element
+        function addElement() {
+            let newPara = document.createElement("p");
+            newPara.innerHTML = "New Paragraph Added!";
+            document.getElementById("container").appendChild(newPara);
+        }
+
+        // 4. Remove element
+        function removeElement() {
+            let container = document.getElementById("container");
+            if (container.lastChild) {
+                container.removeChild(container.lastChild);
+            }
+        }
+
+        // 5. Toggle class (CSS + JS)
+        function toggleClass() {
+            let el = document.getElementById("text");
+            el.classList.toggle("highlight");
+        }
+
+        // 6. Event Listener (IMPORTANT)
+        document.getElementById("text").addEventListener("mouseover", function() {
+            this.innerHTML = "Mouse Over!";
+        });
+
+        document.getElementById("text").addEventListener("mouseout", function() {
+            this.innerHTML = "Hello World!";
+        });
+
+        // 7. Array + Loop
+        let arr = ["AIUB", "Midterm", "Practice"];
+        for (let i = 0; i < arr.length; i++) {
+            console.log(arr[i]);
+        }
+
+        // 8. Condition
+        let num = 10;
+        if (num > 5) {
+            console.log("Greater than 5");
+        }
+
+    </script>
+
+</body>
+</html>
