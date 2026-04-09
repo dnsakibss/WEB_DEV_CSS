@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HTML + CSS + JS — Easy Examples</title>
+
+  <style>
+    /* ===== CSS BASICS ===== */
+
+    /* 1. Variables */
+    :root {
+      --blue: #4f8ef7;
+      --green: #2ecc71;
+      --red: #e74c3c;
+      --bg: #f5f5f5;
+    }
+
+    /* 2. Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* 3. Body */
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: #333;
+    }
+
+    /* 4. Heading styles */
+    h1 { color: var(--blue); text-align: center; padding: 20px; }
+    h2 { color: #555; margin-bottom: 10px; font-size: 1rem; }
+
+    /* 5. Card layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    /* 6. Button styles */
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin: 4px 2px;
+      transition: opacity 0.2s;   /* 7. Transition */
+    }
+    button:hover { opacity: 0.8; }
+
+    .btn-blue  { background: var(--blue);  color: white; }
+    .btn-green { background: var(--green); color: white; }
+    .btn-red   { background: var(--red);   color: white; }
+
+    /* 8. Input styles */
+    input, select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 100%;
+      margin-top: 6px;
+      font-size: 0.9rem;
+    }
+    input:focus { outline: none; border-color: var(--blue); }  /* 9. Pseudo-class */
+
+    /* 10. Flexbox */
+    .flex { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+    /* 11. Text utilities */
+    .small  { font-size: 0.85rem; color: #888; margin-top: 6px; }
+    .output { font-weight: bold; color: var(--blue); margin-top: 8px; min-height: 20px; }
+    .green  { color: var(--green); }
+    .red    { color: var(--red); }
+
+    /* 12. Animation */
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+    .bouncing { animation: bounce 0.6s ease infinite; }
+
+    /* 13. Hover effect */
+    .box {
+      width: 60px; height: 60px;
+      background: var(--blue);
+      border-radius: 8px;
+      transition: transform 0.3s, border-radius 0.3s;
+      cursor: pointer;
+    }
+    .box:hover { transform: rotate(45deg); border-radius: 50%; }
+
+    /* 14. Gradient */
+    .gradient {
+      background: linear-gradient(135deg, var(--blue), var(--green));
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* 15. List style */
+    ul.nice { list-style: none; padding: 0; }
+    ul.nice li { padding: 5px 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+    ul.nice li::before { content: "✅ "; }
+
+    /* 16. Table */
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th { background: var(--blue); color: white; padding: 8px; }
+    td { padding: 7px 8px; border-bottom: 1px solid #eee; }
+    tr:hover td { background: #f0f6ff; }   /* 17. tr hover */
+
+    /* 18. Progress bar */
+    progress { width: 100%; height: 12px; border-radius: 6px; border: none; }
+    progress::-webkit-progress-value { background: var(--green); border-radius: 6px; }
+    progress::-webkit-progress-bar  { background: #eee; border-radius: 6px; }
+
+    /* 19. Badge */
+    .badge {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 0.75rem;
+    }
+
+    /* 20. Media query */
+    @media (max-width: 500px) {
+      h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>HTML + CSS + JS — Easy Examples 🚀</h1>
+
+<div class="grid">
+
+  <!-- ===== CARD 1: HTML Text Tags ===== -->
+  <div class="card">
+    <h2>📝 HTML Text Tags</h2>
+    <p><strong>Bold</strong> · <em>Italic</em> · <u>Underline</u></p>
+    <p><mark>Highlight</mark> · <del>Deleted</del> · <ins>Inserted</ins></p>
+    <p>H<sub>2</sub>O · E=mc<sup>2</sup></p>
+    <p><code>inline code</code> · <small>small text</small></p>
+    <blockquote style="border-left:3px solid var(--blue);padding-left:8px;margin-top:8px;color:#555">
+      "Learn by doing."
+    </blockquote>
+  </div>
+
+  <!-- ===== CARD 2: HTML Lists & Links ===== -->
+  <div class="card">
+    <h2>📋 Lists & Links</h2>
+    <ul class="nice">
+      <li>HTML — Structure</li>
+      <li>CSS &nbsp;— Style</li>
+      <li>JS &nbsp; — Behavior</li>
+    </ul>
+    <ol style="margin-top:10px;padding-left:18px;font-size:0.9rem">
+      <li>Learn HTML</li>
+      <li>Learn CSS</li>
+      <li>Learn JS</li>
+    </ol>
+    <p style="margin-top:10px">
+      <a href="https://developer.mozilla.org" target="_blank" style="color:var(--blue)">Visit MDN ↗</a>
+    </p>
+  </div>
+
+  <!-- ===== CARD 3: HTML Form Inputs ===== -->
+  <div class="card">
+    <h2>📥 Form Inputs</h2>
+    <input type="text"     placeholder="Text input" /><br>
+    <input type="email"    placeholder="Email" style="margin-top:6px"/><br>
+    <input type="number"   placeholder="Number" style="margin-top:6px"/><br>
+    <input type="date"     style="margin-top:6px"/><br>
+    <input type="color"    style="margin-top:6px;width:auto;padding:2px" value="#4f8ef7"/>
+    <input type="range"    min="0" max="100" value="50" style="margin-top:6px"/>
+    <div style="margin-top:8px;font-size:0.85rem">
+      <label><input type="checkbox" checked /> HTML</label> &nbsp;
+      <label><input type="checkbox" /> CSS</label> &nbsp;
+      <label><input type="radio" name="r" /> A</label>
+      <label><input type="radio" name="r" checked /> B</label>
+    </div>
+    <select style="margin-top:8px">
+      <option>Option 1</option>
+      <option>Option 2</option>
+      <option>Option 3</option>
+    </select>
+  </div>
+
+  <!-- ===== CARD 4: HTML Table ===== -->
+  <div class="card">
+    <h2>📊 Table</h2>
+    <table>
+      <thead>
+        <tr><th>Name</th><th>Role</th><th>Level</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>HTML</td><td>Structure</td><td><span class="badge">Beginner</span></td></tr>
+        <tr><td>CSS</td><td>Style</td><td><span class="badge" style="background:var(--green)">Mid</span></td></tr>
+        <tr><td>JS</td><td>Logic</td><td><span class="badge" style="background:var(--red)">Pro</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== CARD 5: CSS Box Model ===== -->
+  <div class="card">
+    <h2>📦 CSS Box Model</h2>
+    <div style="background:#e8f0ff;padding:16px;border:3px solid var(--blue);margin:8px 0;border-radius:6px;text-align:center;font-size:0.85rem">
+      <div style="background:#c5d9ff;padding:10px;border-radius:4px">
+        <div style="background:var(--blue);color:white;padding:8px;border-radius:4px">
+          Content → Padding → Border → Margin
+        </div>
+      </div>
+    </div>
+    <p class="small">margin · border · padding · content</p>
+    <div class="gradient" style="margin-top:8px">Linear Gradient Background</div>
+  </div>
+
+  <!-- ===== CARD 6: CSS Hover & Animation ===== -->
+  <div class="card">
+    <h2>✨ Hover & Animation</h2>
+    <p class="small">Hover the square → it spins into a circle!</p>
+    <div class="box" style="margin:10px 0"></div>
+    <p class="small" style="margin-top:12px">This text bounces (CSS animation):</p>
+    <p class="bouncing" style="font-size:1.2rem;margin-top:4px">🎉 Hello!</p>
+  </div>
+
+  <!-- ===== CARD 7: JS - Variables & Output ===== -->
+  <div class="card">
+    <h2>🔤 JS Variables & Types</h2>
+    <pre style="background:#f5f5f5;padding:10px;border-radius:6px;font-size:0.8rem;overflow:auto"><code>let name = "Alice";       // String
+let age  = 25;            // Number
+let pass = true;          // Boolean
+let x    = null;          // Null
+let y;                    // Undefined
+const PI = 3.14;          // Constant</code></pre>
+    <button class="btn-blue" onclick="showTypes()">Run Code</button>
+    <p class="output" id="types-out"></p>
+  </div>
+
+  <!-- ===== CARD 8: JS - If / Else ===== -->
+  <div class="card">
+    <h2>🔀 JS If / Else</h2>
+    <input type="number" id="age-input" placeholder="Enter your age" />
+    <button class="btn-blue" onclick="checkAge()" style="margin-top:8px">Check</button>
+    <p class="output" id="age-out"></p>
+    <p class="small">Uses: if / else if / else</p>
+  </div>
+
+  <!-- ===== CARD 9: JS - Loops ===== -->
+  <div class="card">
+    <h2>🔁 JS Loops</h2>
+    <div class="flex">
+      <button class="btn-blue"  onclick="doFor()">for loop</button>
+      <button class="btn-green" onclick="doWhile()">while loop</button>
+      <button class="btn-red"   onclick="doForOf()">for...of</button>
+    </div>
+    <p class="output" id="loop-out"></p>
+  </div>
+
+  <!-- ===== CARD 10: JS - Functions ===== -->
+  <div class="card">
+    <h2>⚙️ JS Functions</h2>
+    <pre style="background:#f5f5f5;padding:10px;border-radius:6px;font-size:0.8rem"><code>function add(a, b) { return a + b; }
+const double = x => x * 2;
+const greet  = name => `Hi ${name}!`;</code></pre>
+    <input type="number" id="fn-input" placeholder="Enter a number" />
+    <button class="btn-blue" onclick="runFunctions()" style="margin-top:8px">Run</button>
+    <p class="output" id="fn-out"></p>
+  </div>
+
+  <!-- ===== CARD 11: JS - Arrays ===== -->
+  <div class="card">
+    <h2>🗂️ JS Arrays</h2>
+    <div class="flex">
+      <button class="btn-blue"  onclick="arrMap()">map()</button>
+      <button class="btn-green" onclick="arrFilter()">filter()</button>
+      <button class="btn-red"   onclick="arrReduce()">reduce()</button>
+    </div>
+    <p class="output" id="arr-out"></p>
+    <p class="small">Array: [1, 2, 3, 4, 5, 6]</p>
+  </div>
+
+  <!-- ===== CARD 12: JS - Objects ===== -->
+  <div class="card">
+    <h2>🧩 JS Objects</h2>
+    <pre style="background:#f5f5f5;padding:8px;border-radius:6px;font-size:0.8rem"><code>const person = {
+  name: "Alice",
+  age: 25,
+  greet() { return "Hi!"; }
+};</code></pre>
+    <button class="btn-blue" onclick="showObject()">Show Object</button>
+    <button class="btn-green" onclick="destructure()">Destructure</button>
+    <p class="output" id="obj-out"></p>
+  </div>
+
+  <!-- ===== CARD 13: JS - DOM ===== -->
+  <div class="card">
+    <h2>🖱️ JS DOM</h2>
+    <input type="text" id="dom-input" placeholder="Type something..." />
+    <div class="flex" style="margin-top:8px">
+      <button class="btn-blue"  onclick="changeText()">Change Text</button>
+      <button class="btn-green" onclick="changeColor()">Change Color</button>
+      <button class="btn-red"   onclick="hideShow()">Hide/Show</button>
+    </div>
+    <p id="dom-target" style="margin-top:10px;padding:8px;background:#f0f6ff;border-radius:6px">
+      I am the DOM target!
+    </p>
+  </div>
+
+  <!-- ===== CARD 14: JS - Events ===== -->
+  <div class="card">
+    <h2>🎯 JS Events</h2>
+    <div
+      id="event-box"
+      style="background:#e8f0ff;border-radius:8px;padding:20px;text-align:center;cursor:pointer;font-size:0.9rem;transition:background 0.2s"
+      onclick="evClick()"
+      onmouseover="evHover(true)"
+      onmouseout="evHover(false)"
+      ondblclick="evDouble()"
+    >
+      Click / Hover / Double-click me!
+    </div>
+    <p class="output" id="event-out">Waiting for event...</p>
+  </div>
+
+  <!-- ===== CARD 15: JS - Fetch API ===== -->
+  <div class="card">
+    <h2>🌐 JS Fetch API</h2>
+    <button class="btn-blue" onclick="fetchUser()">Fetch Random User</button>
+    <div id="fetch-out" class="small" style="margin-top:8px;min-height:40px">Press button to load data...</div>
+  </div>
+
+  <!-- ===== CARD 16: JS - localStorage ===== -->
+  <div class="card">
+    <h2>💾 localStorage</h2>
+    <input type="text" id="ls-input" placeholder="Type to save..." />
+    <div class="flex" style="margin-top:8px">
+      <button class="btn-green" onclick="lsSave()">Save</button>
+      <button class="btn-blue"  onclick="lsLoad()">Load</button>
+      <button class="btn-red"   onclick="lsClear()">Clear</button>
+    </div>
+    <p class="output" id="ls-out"></p>
+  </div>
+
+  <!-- ===== CARD 17: JS - Try/Catch ===== -->
+  <div class="card">
+    <h2>⚠️ Try / Catch</h2>
+    <pre style="background:#f5f5f5;padding:8px;border-radius:6px;font-size:0.8rem"><code>try {
+  // risky code
+} catch (err) {
+  // handle error
+} finally {
+  // always runs
+}</code></pre>
+    <button class="btn-red"   onclick="triggerErr()">Trigger Error</button>
+    <button class="btn-green" onclick="triggerOk()">Trigger Success</button>
+    <p class="output" id="err-out"></p>
+  </div>
+
+  <!-- ===== CARD 18: JS - setTimeout / setInterval ===== -->
+  <div class="card">
+    <h2>⏱️ Timers</h2>
+    <button class="btn-blue"  onclick="doTimeout()">setTimeout (1s)</button>
+    <button class="btn-green" onclick="startInterval()">Start Interval</button>
+    <button class="btn-red"   onclick="stopInterval()">Stop</button>
+    <p class="output" id="timer-out">0</p>
+    <p class="small">setTimeout runs once, setInterval repeats</p>
+  </div>
+
+  <!-- ===== CARD 19: JS - Classes ===== -->
+  <div class="card">
+    <h2>🏗️ JS Classes</h2>
+    <pre style="background:#f5f5f5;padding:8px;border-radius:6px;font-size:0.8rem"><code>class Animal {
+  constructor(name) { this.name = name; }
+  speak() { return `${this.name} speaks`; }
+}
+class Dog extends Animal {
+  speak() { return `${this.name}: Woof!`; }
+}</code></pre>
+    <button class="btn-blue" onclick="runClass()">Run</button>
+    <p class="output" id="class-out"></p>
+  </div>
+
+  <!-- ===== CARD 20: JS - Promises / Async ===== -->
+  <div class="card">
+    <h2>⏳ Async / Await</h2>
+    <pre style="background:#f5f5f5;padding:8px;border-radius:6px;font-size:0.8rem"><code>async function getData() {
+  const res  = await fetch(url);
+  const data = await res.json();
+  return data;
+}</code></pre>
+    <button class="btn-blue" onclick="runAsync()">Run Async</button>
+    <p class="output" id="async-out"></p>
+  </div>
+
+  <!-- ===== CARD 21: JS - Regex ===== -->
+  <div class="card">
+    <h2>🔍 Regex</h2>
+    <input type="text" id="regex-in" placeholder="Type an email..." />
+    <button class="btn-blue" onclick="testEmail()" style="margin-top:8px">Validate Email</button>
+    <input type="text" id="regex-in2" placeholder="Type any text..." style="margin-top:8px"/>
+    <button class="btn-green" onclick="testDigits()">Find Digits</button>
+    <p class="output" id="regex-out"></p>
+  </div>
+
+  <!-- ===== CARD 22: JS - Spread & Destructure ===== -->
+  <div class="card">
+    <h2>📤 Spread & Destructure</h2>
+    <button class="btn-blue"  onclick="doSpread()">Spread (...)</button>
+    <button class="btn-green" onclick="doDestruct()">Destructure</button>
+    <button class="btn-red"   onclick="doOptChain()">Optional ?.</button>
+    <p class="output" id="spread-out"></p>
+  </div>
+
+  <!-- ===== CARD 23: Live Calculator ===== -->
+  <div class="card">
+    <h2>🧮 Mini Calculator</h2>
+    <div class="flex">
+      <input type="number" id="ca" value="10" style="width:80px"/>
+      <select id="cop" style="width:60px;margin-top:0">
+        <option>+</option><option>-</option><option>*</option><option>/</option>
+      </select>
+      <input type="number" id="cb" value="3" style="width:80px"/>
+    </div>
+    <button class="btn-blue" onclick="calc()" style="margin-top:8px">= Calculate</button>
+    <p class="output" id="calc-out"></p>
+  </div>
+
+  <!-- ===== CARD 24: Progress Bar ===== -->
+  <div class="card">
+    <h2>📈 Progress Bar</h2>
+    <progress id="prog" value="40" max="100"></progress>
+    <p class="output" id="prog-label">40%</p>
+    <div class="flex">
+      <button class="btn-green" onclick="changeProg(10)">+10%</button>
+      <button class="btn-red"   onclick="changeProg(-10)">-10%</button>
+      <button class="btn-blue"  onclick="resetProg()">Reset</button>
+    </div>
+  </div>
+
+</div><!-- end grid -->
+
+<!-- ===== INTERNAL JAVASCRIPT ===== -->
+<script>
+
+  // ── Card 7: Variables & Types ──────────────────────────
+  function showTypes() {
+    let name = "Alice";
+    let age  = 25;
+    let pass = true;
+    const PI = 3.14;
+    document.getElementById('types-out').textContent =
+      `name="${name}" (${typeof name}), age=${age} (${typeof age}), pass=${pass} (${typeof pass}), PI=${PI}`;
+  }
+
+  // ── Card 8: If / Else ──────────────────────────────────
+  function checkAge() {
+    const age = parseInt(document.getElementById('age-input').value);
+    const out = document.getElementById('age-out');
+    if (isNaN(age)) {
+      out.textContent = 'Please enter a number!';
+      out.className = 'output red';
+    } else if (age < 13) {
+      out.textContent = '👶 You are a child.';
+      out.className = 'output';
+    } else if (age < 18) {
+      out.textContent = '🧒 You are a teenager.';
+      out.className = 'output';
+    } else {
+      out.textContent = '🧑 You are an adult!';
+      out.className = 'output green';
+    }
+  }
+
+  // ── Card 9: Loops ──────────────────────────────────────
+  function doFor() {
+    let result = '';
+    for (let i = 1; i <= 5; i++) result += i + ' ';
+    document.getElementById('loop-out').textContent = 'for: ' + result;
+  }
+  function doWhile() {
+    let i = 1, result = '';
+    while (i <= 5) { result += i + ' '; i++; }
+    document.getElementById('loop-out').textContent = 'while: ' + result;
+  }
+  function doForOf() {
+    const fruits = ['🍎','🍌','🍇','🍓'];
+    let result = '';
+    for (const f of fruits) result += f + ' ';
+    document.getElementById('loop-out').textContent = 'for...of: ' + result;
+  }
+
+  // ── Card 10: Functions ─────────────────────────────────
+  function runFunctions() {
+    const n = parseFloat(document.getElementById('fn-input').value) || 5;
+    function add(a, b) { return a + b; }
+    const double = x => x * 2;
+    const greet  = name => `Hi, Number ${name}!`;
+    document.getElementById('fn-out').textContent =
+      `add(${n},3)=${add(n,3)} | double(${n})=${double(n)} | greet="${greet(n)}"`;
+  }
+
+  // ── Card 11: Arrays ────────────────────────────────────
+  const nums = [1, 2, 3, 4, 5, 6];
+  function arrMap()    { document.getElementById('arr-out').textContent = 'map ×2: [' + nums.map(n => n * 2) + ']'; }
+  function arrFilter() { document.getElementById('arr-out').textContent = 'filter even: [' + nums.filter(n => n % 2 === 0) + ']'; }
+  function arrReduce() { document.getElementById('arr-out').textContent = 'reduce sum: ' + nums.reduce((a, b) => a + b, 0); }
+
+  // ── Card 12: Objects ───────────────────────────────────
+  function showObject() {
+    const person = { name: 'Alice', age: 25, greet() { return 'Hi!'; } };
+    document.getElementById('obj-out').textContent =
+      `name=${person.name}, age=${person.age}, greet="${person.greet()}"`;
+  }
+  function destructure() {
+    const person = { name: 'Bob', age: 30 };
+    const { name, age } = person;   // destructure
+    document.getElementById('obj-out').textContent = `Destructured → name="${name}", age=${age}`;
+  }
+
+  // ── Card 13: DOM ───────────────────────────────────────
+  let isHidden = false;
+  function changeText() {
+    const val = document.getElementById('dom-input').value || '(empty)';
+    document.getElementById('dom-target').textContent = val;
+  }
+  function changeColor() {
+    const colors = ['#e8f0ff','#e8fff0','#fff0f0','#fff8e0'];
+    const el = document.getElementById('dom-target');
+    el.style.background = colors[Math.floor(Math.random() * colors.length)];
+  }
+  function hideShow() {
+    const el = document.getElementById('dom-target');
+    isHidden = !isHidden;
+    el.style.display = isHidden ? 'none' : 'block';
+  }
+
+  // ── Card 14: Events ────────────────────────────────────
+  function evClick()  {
+    const out = document.getElementById('event-out');
+    out.textContent = '🖱️ Clicked!';  out.className = 'output green';
+  }
+  function evDouble() {
+    const out = document.getElementById('event-out');
+    out.textContent = '💥 Double Clicked!'; out.className = 'output red';
+  }
+  function evHover(on) {
+    const box = document.getElementById('event-box');
+    box.style.background = on ? '#c5d9ff' : '#e8f0ff';
+    if (on) document.getElementById('event-out').textContent = '👆 Hovering...';
+  }
+
+  // ── Card 15: Fetch ─────────────────────────────────────
+  async function fetchUser() {
+    const out = document.getElementById('fetch-out');
+    out.textContent = 'Loading...';
+    try {
+      const res  = await fetch('https://randomuser.me/api/');
+      const data = await res.json();
+      const u = data.results[0];
+      out.innerHTML = `<strong>${u.name.first} ${u.name.last}</strong><br>
+        📧 ${u.email}<br>📍 ${u.location.city}, ${u.location.country}`;
+    } catch(e) {
+      out.textContent = 'Error: ' + e.message;
+    }
+  }
+
+  // ── Card 16: localStorage ─────────────────────────────
+  function lsSave()  {
+    const v = document.getElementById('ls-input').value;
+    localStorage.setItem('saved', v);
+    document.getElementById('ls-out').textContent = `Saved: "${v}"`;
+  }
+  function lsLoad()  {
+    const v = localStorage.getItem('saved');
+    document.getElementById('ls-out').textContent = v ? `Loaded: "${v}"` : 'Nothing saved yet.';
+  }
+  function lsClear() {
+    localStorage.removeItem('saved');
+    document.getElementById('ls-out').textContent = 'Cleared!';
+  }
+
+  // ── Card 17: Try / Catch ──────────────────────────────
+  function triggerErr() {
+    const out = document.getElementById('err-out');
+    try {
+      null.foo;  // causes TypeError
+    } catch(e) {
+      out.textContent = '❌ Caught: ' + e.message;
+      out.className = 'output red';
+    } finally {
+      out.textContent += ' | finally ran ✓';
+    }
+  }
+  function triggerOk() {
+    const out = document.getElementById('err-out');
+    try {
+      const result = JSON.parse('{"ok":true}');
+      out.textContent = '✅ Success: ok=' + result.ok;
+      out.className = 'output green';
+    } catch(e) {
+      out.textContent = 'Error: ' + e.message;
+    } finally {
+      out.textContent += ' | finally ran ✓';
+    }
+  }
+
+  // ── Card 18: Timers ────────────────────────────────────
+  let ticker = null, count = 0;
+  function doTimeout() {
+    const out = document.getElementById('timer-out');
+    out.textContent = 'Waiting 1 second...';
+    setTimeout(() => { out.textContent = '✅ setTimeout fired after 1s!'; }, 1000);
+  }
+  function startInterval() {
+    if (ticker) return;
+    ticker = setInterval(() => {
+      count++;
+      document.getElementById('timer-out').textContent = count;
+    }, 500);
+  }
+  function stopInterval() {
+    clearInterval(ticker);
+    ticker = null;
+    document.getElementById('timer-out').textContent = `Stopped at ${count}`;
+  }
+
+  // ── Card 19: Classes ───────────────────────────────────
+  function runClass() {
+    class Animal {
+      constructor(name) { this.name = name; }
+      speak() { return `${this.name} speaks`; }
+    }
+    class Dog extends Animal {
+      speak() { return `${this.name}: Woof! 🐶`; }
+    }
+    const a = new Animal('Cat');
+    const d = new Dog('Rex');
+    document.getElementById('class-out').textContent =
+      `Animal → "${a.speak()}" | Dog → "${d.speak()}"`;
+  }
+
+  // ── Card 20: Async / Await ────────────────────────────
+  function wait(ms) { return new Promise(res => setTimeout(res, ms)); }
+  async function runAsync() {
+    const out = document.getElementById('async-out');
+    out.textContent = 'Step 1: Starting...';
+    await wait(800);
+    out.textContent = 'Step 2: Processing...';
+    await wait(800);
+    out.textContent = '✅ Step 3: Done! (async/await)';
+    out.className = 'output green';
+  }
+
+  // ── Card 21: Regex ─────────────────────────────────────
+  function testEmail() {
+    const val = document.getElementById('regex-in').value;
+    const ok  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    const out = document.getElementById('regex-out');
+    out.textContent  = ok ? '✅ Valid email!' : '❌ Invalid email';
+    out.className    = 'output ' + (ok ? 'green' : 'red');
+  }
+  function testDigits() {
+    const val    = document.getElementById('regex-in2').value;
+    const digits = val.match(/\d+/g);
+    document.getElementById('regex-out').textContent =
+      digits ? `Found digits: [${digits.join(', ')}]` : 'No digits found';
+    document.getElementById('regex-out').className = 'output';
+  }
+
+  // ── Card 22: Spread & Destructure ────────────────────
+  function doSpread() {
+    const a = [1, 2, 3];
+    const b = [4, 5, 6];
+    const merged = [...a, ...b];
+    const obj1 = { x: 1 }, obj2 = { y: 2 };
+    const merged2 = { ...obj1, ...obj2 };
+    document.getElementById('spread-out').textContent =
+      `Arrays: [${merged}] | Objects: ${JSON.stringify(merged2)}`;
+  }
+  function doDestruct() {
+    const [first, , third] = [10, 20, 30];
+    const { name, age = 18 } = { name: 'Alice' };
+    document.getElementById('spread-out').textContent =
+      `Array destruct: first=${first}, third=${third} | Object: name=${name}, age=${age}`;
+  }
+  function doOptChain() {
+    const user = { profile: { city: 'Dhaka' } };
+    const city    = user?.profile?.city;
+    const country = user?.profile?.country ?? 'Unknown';
+    document.getElementById('spread-out').textContent =
+      `city="${city}", country="${country}" (optional chaining + nullish)`;
+  }
+
+  // ── Card 23: Calculator ───────────────────────────────
+  function calc() {
+    const a  = parseFloat(document.getElementById('ca').value);
+    const b  = parseFloat(document.getElementById('cb').value);
+    const op = document.getElementById('cop').value;
+    const ops = { '+': a+b, '-': a-b, '*': a*b, '/': a/b };
+    const r = ops[op];
+    document.getElementById('calc-out').textContent =
+      `${a} ${op} ${b} = ${Number.isFinite(r) ? r : 'Error (÷0)'}`;
+  }
+
+  // ── Card 24: Progress ─────────────────────────────────
+  let progVal = 40;
+  function changeProg(n) {
+    progVal = Math.min(100, Math.max(0, progVal + n));
+    document.getElementById('prog').value = progVal;
+    document.getElementById('prog-label').textContent = progVal + '%';
+  }
+  function resetProg() {
+    progVal = 0;
+    document.getElementById('prog').value = 0;
+    document.getElementById('prog-label').textContent = '0%';
+  }
+
+</script>
+</body>
+</html>
